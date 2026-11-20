@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projects · Nick Campuzano</title>
+<meta name="description" content="Projects by Nick Campuzano: forecast and dashboard demos, an open-source job alert tool, data graphics and automation work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">Nick Campuzano<span>.</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="projects.html" aria-current="page">Projects</a>
+      <a href="resume.html">Resume</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap" style="grid-template-columns:minmax(0,1fr)">
+      <div class="hero-text">
+        <span class="eyebrow">Projects</span>
+        <h1>Projects and prototypes</h1>
+        <p class="sub">Two demos you can try in the browser, an open-source tool, a data graphic, and a summary of systems I built at work. The demos use made-up data; nothing here comes from a former employer.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <article class="project" id="forecast">
+      <div class="body">
+        <span class="eyebrow">Live demo · FP&amp;A</span>
+        <h2>Revenue forecast planner</h2>
+        <p>A one-page planning model for a fictional manufacturer. You set volume, growth, new accounts, a price change and printer capacity, and it builds a 12-month forecast in three scenarios.</p>
+        <ul>
+          <li>New accounts ramp up over three months instead of arriving at full volume.</li>
+          <li>Capacity utilization is checked against an 85% planning threshold, and the model tells you the month you'd need another printer.</li>
+          <li>Every number updates as you type. The math lives in one small, readable function.</li>
+        </ul>
+        <div class="actions"><a class="btn primary" href="demos/forecast.html">Open the planner</a></div>
+      </div>
+      <a class="preview-card" href="demos/forecast.html" aria-label="Open the revenue forecast planner">
+        <div class="mini">
+          <div><small>FY revenue</small><strong>Base case</strong></div>
+          <div><small>Scenarios</small><strong>3</strong></div>
+          <div><small>Capacity</small><strong>85% line</strong></div>
+        </div>
+        <svg viewBox="0 0 320 110" aria-hidden="true">
+          <line class="chart-axis" x1="6" y1="100" x2="314" y2="100"/>
+          <polyline class="chart-actual" style="stroke:var(--faint);stroke-width:2" points="10,86 60,82 110,79 160,75 210,72 260,69 310,66"/>
+          <polyline class="chart-actual" style="stroke:var(--accent)" points="10,84 60,77 110,70 160,62 210,55 260,48 310,41"/>
+          <polyline class="chart-forecast" style="stroke-dasharray:none" points="10,82 60,70 110,58 160,46 210,35 260,25 310,14"/>
+        </svg>
+      </a>
+    </article>
+
+    <article class="project" id="quality">
+      <div class="body">
+        <span class="eyebrow">Live demo · BI</span>
+        <h2>Quality dashboard prototype</h2>
+        <p>A remake-rate dashboard of the kind a manufacturing lab uses to spot quality problems early. It runs on 18 months of generated sample data across four product lines.</p>
+        <ul>
+          <li>Filter by product and period. Every tile shows the change against the prior period.</li>
+          <li>A Pareto chart ranks remake reasons and shows how few of them drive most of the volume.</li>
+          <li>The trend chart marks the month a new design check went live, so you can see whether it worked.</li>
+        </ul>
+        <div class="actions"><a class="btn primary" href="demos/quality.html">Open the dashboard</a></div>
+      </div>
+      <a class="preview-card" href="demos/quality.html" aria-label="Open the quality dashboard prototype">
+        <div class="mini">
+          <div><small>Cases</small><strong>Monthly</strong></div>
+          <div><small>Remake rate</small><strong>vs target</strong></div>
+          <div><small>Top reason</small><strong>Pareto</strong></div>
+        </div>
+        <svg viewBox="0 0 320 110" aria-hidden="true">
+          <line class="chart-axis" x1="6" y1="100" x2="314" y2="100"/>
+          <line class="chart-split" x1="6" y1="58" x2="314" y2="58"/>
+          <polyline class="chart-actual" style="stroke:var(--accent)" points="10,40 38,34 66,42 94,30 122,36 150,28 178,46 206,60 234,64 262,70 290,66 310,72"/>
+        </svg>
+      </a>
+    </article>
+
+    <article class="project" id="job-alert-tool">
+      <div class="body">
+        <span class="eyebrow">Open source · Python</span>
+        <h2>Job alert tool</h2>
+        <p>Job aggregators re-list postings hours or days after a company publishes them. This tool goes to the source: it reads company job boards directly every hour, so I hear about a matching role soon after it goes live.</p>
+        <ul>
+          <li>Fetchers for Greenhouse, Lever, Ashby and Workday boards.</li>
+          <li>A seen-jobs store (SQLite or Postgres) so only new postings alert. The first run seeds quietly instead of sending hundreds of old jobs.</li>
+          <li>Filters for title, location and freshness, an optional 0 to 100 fit score from Claude, and email or phone alerts, best match first.</li>
+          <li>Runs hourly on GitHub Actions, with a test suite that needs no network.</li>
+        </ul>
+        <div class="actions"><a class="btn primary" href="https://github.com/nickgcamp/job-alert-tool-2">View on GitHub</a></div>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">How it works</span>
+        <div class="flow">
+          <div class="node"><b>Company list</b><span>companies.csv</span></div>
+          <span class="arrow">→</span>
+          <div class="node"><b>Fetchers</b><span>Greenhouse · Lever · Ashby · Workday</span></div>
+          <span class="arrow">→</span>
+          <div class="node"><b>Seen jobs</b><span>is this new?</span></div>
+          <span class="arrow">→</span>
+          <div class="node"><b>Filters</b><span>title · location · age</span></div>
+          <span class="arrow">→</span>
+          <div class="node"><b>Fit score</b><span>Claude, optional</span></div>
+          <span class="arrow">→</span>
+          <div class="node"><b>Alert</b><span>email or phone push</span></div>
+        </div>
+        <p class="note">Built with Python, requests, SQLite/Postgres, pytest and GitHub Actions.</p>
+      </div>
+    </article>
+
+    <article class="project" id="vikings">
+      <div class="body">
+        <span class="eyebrow">Data graphic</span>
+        <h2>The worst Vikings QBR games since 2010</h2>
+        <p>After a rough Sunday in November 2026 I wanted to know where it ranked. I pulled ESPN Total QBR from game logs, kept regular-season games with at least 20 plays, ranked them with ties sharing a rank, and designed the chart so the newest game stands out.</p>
+        <p class="note">It's the start of a side project: sports graphics built from data, one team first.</p>
+      </div>
+      <figure>
+        <img src="assets/img/vikings-worst-qbr-games.jpg" width="1400" height="1261" loading="lazy" alt="Bar chart of the 26 worst Minnesota Vikings QBR games since 2010. Carson Wentz against Buffalo on Nov 9, 2026 ties Matt Cassel's 2013 game at Cincinnati for the lowest, a QBR of 2.3.">
+        <figcaption>Data: ESPN Total QBR, regular season 2010 to 2026, as of Nov 9, 2026</figcaption>
+      </figure>
+    </article>
+
+    <article class="project" id="work">
+      <div class="body">
+        <span class="eyebrow">Built at work</span>
+        <h2>Systems I built as a decision support analyst</h2>
+        <p>These are internal tools, so there are no screenshots or data here. Happy to walk through how they work in an interview.</p>
+      </div>
+      <div class="private-list">
+        <div><b>Reporting database and nightly ETL</b><p>One database joining finance, sales, shipping, customer service, design and manufacturing data, loaded nightly from SQL Server into PostgreSQL so reports keep running when a source system is down.</p></div>
+        <div><b>Internal operations platform</b><p>A Python, FastAPI and PostgreSQL web app with modules for collections, remakes, workload and case tracking.</p></div>
+        <div><b>Prescription-to-printer automation</b><p>Takes a submitted appliance prescription through check-in, design, QC and nesting onto the 3D printers with no human touch until after printing.</p></div>
+        <div><b>Scan station and inventory</b><p>A barcode station that logs technician tasks for labor-efficiency reporting, plus the lab's first inventory system with lot number tracking.</p></div>
+        <div><b>Automated reporting</b><p>Monthly revenue, bi-weekly intake and quarterly shipment reports that run on their own, and Claude skills for recurring analysis.</p></div>
+      </div>
+    </article>
+
+    <article class="project" id="personal">
+      <div class="body">
+        <span class="eyebrow">Personal builds</span>
+        <h2>Things I made for myself</h2>
+        <p>Side projects are where I try new tools before I need them at work.</p>
+      </div>
+      <div class="private-list">
+        <div><b>Printed daily brief</b><p>A Python pipeline that turns my notes, calendar, reminders, market closes, scores and weather into a print-ready newspaper that prints at home each morning, with a daily crossword generator.</p></div>
+        <div><b>Triathlon training app</b><p>Merges Garmin and Apple Watch data into a live training dashboard. A planner script builds each next session from recent workouts and the plan, then pushes it to workout apps and equipment.</p></div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Nick Campuzano</span>
+    <span>Plain HTML, CSS and JavaScript on GitHub Pages</span>
+  </div>
+</footer>
+
+</body>
+</html>

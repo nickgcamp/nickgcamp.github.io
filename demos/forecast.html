@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Revenue Forecast Planner · Nick Campuzano</title>
+<meta name="description" content="Interactive 12-month revenue forecast and capacity planner with three scenarios, built on made-up sample data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .app { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px; padding-block: 28px 56px; align-items: start; }
+  .controls { display: grid; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  .controls h2 { font-size: 1rem; font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 500; }
+  .field { display: grid; gap: 6px; }
+  .field-top { display: flex; justify-content: space-between; gap: 8px; font-size: .9rem; }
+  .field-top label { font-weight: 500; }
+  .field-top output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--accent); }
+  .field small { color: var(--faint); font-size: .78rem; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  select { font: inherit; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+  .group { display: grid; gap: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .reset { font: inherit; font-size: .85rem; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
+  .reset:hover { border-color: var(--accent); }
+  .out { display: grid; gap: 20px; min-width: 0; }
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; display: grid; gap: 4px; min-width: 0; }
+  .kpi small { font-family: var(--f-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .kpi strong { font-family: var(--f-display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .kpi span { font-size: .8rem; color: var(--muted); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 10px; min-width: 0; }
+  .card-top { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+  .card h3 { font-size: 1.05rem; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: .8rem; color: var(--muted); }
+  .legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+  .chart svg { width: 100%; height: auto; display: block; }
+  .ax { stroke: var(--line); }
+  .tick { fill: var(--muted); font-family: var(--f-mono); font-size: 11px; }
+  .l-cons { stroke: var(--faint); }
+  .l-base { stroke: var(--accent); }
+  .l-agg { stroke: var(--amber); }
+  .l-run { stroke: var(--muted); stroke-dasharray: 4 5; }
+  .ln { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+  .b-ok { fill: var(--accent); }
+  .b-warn { fill: var(--amber); }
+  .b-over { fill: var(--bad); }
+  .thresh { stroke: var(--ink); stroke-dasharray: 5 4; }
+  .tlabel { fill: var(--ink); font-family: var(--f-mono); font-size: 11px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  th { font-family: var(--f-mono); font-weight: 500; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  tfoot td { font-weight: 600; border-bottom: 0; }
+  .pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-family: var(--f-mono); font-size: .75rem; }
+  .p-ok { background: var(--accent-soft); color: var(--ink); }
+  .p-warn { background: var(--amber-soft); color: var(--amber); }
+  .p-over { background: var(--bad-soft); color: var(--bad); }
+  .demo-banner { background: var(--amber-soft); border-bottom: 1px solid var(--line); font-size: .85rem; }
+  .demo-banner .wrap { padding-block: 8px; }
+  .intro { padding-top: 28px; display: grid; gap: 8px; max-width: 70ch; }
+  .intro p { color: var(--muted); }
+  @media (max-width: 900px) {
+    .app { grid-template-columns: minmax(0, 1fr); }
+    .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Nick Campuzano<span>.</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" aria-current="page">Projects</a>
+      <a href="../resume.html">Resume</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+<div class="demo-banner"><div class="wrap">Demo with a fictional company. Every number on this page is made up.</div></div>
+
+<main class="wrap">
+  <div class="intro">
+    <span class="eyebrow">Live demo · FP&amp;A</span>
+    <h1 style="font-size:var(--step-3)">Revenue forecast planner</h1>
+    <p>A 12-month plan for a made-up lab that sells cases printed on 3D printers. Move the inputs and the forecast, scenarios and capacity check update together.</p>
+  </div>
+
+  <div class="app">
+    <form class="controls" id="controls" aria-label="Forecast inputs" onsubmit="return false">
+      <h2>Inputs</h2>
+      <div class="field">
+        <div class="field-top"><label for="base">Cases last month</label><output id="base-o"></output></div>
+        <input type="range" id="base" min="1000" max="8000" step="100" value="3200">
+      </div>
+      <div class="field">
+        <div class="field-top"><label for="price">Revenue per case</label><output id="price-o"></output></div>
+        <input type="range" id="price" min="60" max="400" step="5" value="185">
+      </div>
+      <div class="field">
+        <div class="field-top"><label for="growth">Organic growth per month</label><output id="growth-o"></output></div>
+        <input type="range" id="growth" min="0" max="5" step="0.1" value="1.5">
+        <small>Growth from existing accounts</small>
+      </div>
+      <div class="group">
+        <div class="field">
+          <div class="field-top"><label for="adds">New accounts per month</label><output id="adds-o"></output></div>
+          <input type="range" id="adds" min="0" max="20" step="1" value="4">
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="perAcct">Cases per new account</label><output id="perAcct-o"></output></div>
+          <input type="range" id="perAcct" min="2" max="60" step="1" value="14">
+          <small>Monthly, once ramped. New accounts take 3 months to ramp.</small>
+        </div>
+      </div>
+      <div class="group">
+        <div class="field">
+          <div class="field-top"><label for="inc">Price increase</label><output id="inc-o"></output></div>
+          <input type="range" id="inc" min="0" max="10" step="0.5" value="3">
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="priceMonth">Starting in</label></div>
+          <select id="priceMonth"></select>
+        </div>
+      </div>
+      <div class="group">
+        <div class="field">
+          <div class="field-top"><label for="printers">Printers</label><output id="printers-o"></output></div>
+          <input type="range" id="printers" min="1" max="20" step="1" value="6">
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="capPer">Cases per printer per month</label><output id="capPer-o"></output></div>
+          <input type="range" id="capPer" min="200" max="1500" step="25" value="725">
+        </div>
+      </div>
+      <button type="button" class="reset" id="reset">Reset to sample inputs</button>
+    </form>
+
+    <div class="out">
+      <div class="kpis" aria-live="polite">
+        <div class="kpi"><small>FY revenue, base</small><strong id="k-rev"></strong><span id="k-range"></span></div>
+        <div class="kpi"><small>Growth vs run rate</small><strong id="k-growth"></strong><span>Base case vs last month × 12</span></div>
+        <div class="kpi"><small>Peak utilization</small><strong id="k-util"></strong><span id="k-peak"></span></div>
+        <div class="kpi"><small>Add a printer by</small><strong id="k-printer"></strong><span id="k-need"></span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <h3>Monthly revenue by scenario</h3>
+          <div class="legend">
+            <span><i style="background:var(--faint)"></i>Conservative</span>
+            <span><i style="background:var(--accent)"></i>Base</span>
+            <span><i style="background:var(--amber)"></i>Aggressive</span>
+            <span><i style="background:var(--muted)"></i>Run rate</span>
+          </div>
+        </div>
+        <div class="chart" id="rev-chart"></div>
+        <p class="note">Conservative halves organic growth and new accounts. Aggressive takes growth up 60% and new accounts up 50%.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <h3>Printer utilization, base case</h3>
+          <div class="legend">
+            <span><i style="background:var(--accent)"></i>Under 85%</span>
+            <span><i style="background:var(--amber)"></i>85 to 100%</span>
+            <span><i style="background:var(--bad)"></i>Over capacity</span>
+          </div>
+        </div>
+        <div class="chart" id="util-chart"></div>
+        <p class="note">85% is the planning line: above it, there's little room for remakes, rush orders or a printer going down.</p>
+      </div>
+
+      <div class="card">
+        <h3>Month by month</h3>
+        <div class="table-wrap"><table id="table"></table></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Nick Campuzano</span>
+    <a href="../projects.html">Back to projects</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var DEFAULTS = { base: 3200, price: 185, growth: 1.5, adds: 4, perAcct: 14, inc: 3, priceMonth: 3, printers: 6, capPer: 725 };
+  var SCEN = { cons: { g: 0.5, a: 0.5 }, base: { g: 1, a: 1 }, agg: { g: 1.6, a: 1.5 } };
+  var PLAN_LINE = 0.85;
+
+  var sel = document.getElementById('priceMonth');
+  MONTHS.forEach(function (m, i) { var o = document.createElement('option'); o.value = i; o.textContent = m; sel.appendChild(o); });
+
+  function money(v) { return v >= 1e6 ? '$' + (v / 1e6).toFixed(2) + 'M' : '$' + Math.round(v / 1e3) + 'K'; }
+  function int(v) { return Math.round(v).toLocaleString('en-US'); }
+  function pct(v, d) { return (v * 100).toFixed(d == null ? 0 : d) + '%'; }
+
+  function read() {
+    var p = {};
+    Object.keys(DEFAULTS).forEach(function (k) { p[k] = Number(document.getElementById(k).value); });
+    return p;
+  }
+
+  // The whole model: compounding organic growth plus monthly cohorts of new accounts
+  // that ramp linearly over three months. Price steps up in the chosen month.
+  function forecast(p, s) {
+    var g = p.growth / 100 * s.g, adds = p.adds * s.a, cap = p.printers * p.capPer, rows = [];
+    for (var m = 0; m < 12; m++) {
+      var cases = p.base * Math.pow(1 + g, m + 1);
+      for (var k = 0; k <= m; k++) cases += adds * p.perAcct * Math.min(1, (m - k + 1) / 3);
+      var price = p.price * (m >= p.priceMonth ? 1 + p.inc / 100 : 1);
+      rows.push({ cases: cases, rev: cases * price, util: cases / cap });
+    }
+    return rows;
+  }
+
+  function niceStep(raw) {
+    var e = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / e;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * e;
+  }
+
+  var W = 640, H = 250, L = 58, R = 14, T = 14, B = 28;
+  function x(i) { return L + (W - L - R) * (i + 0.5) / 12; }
+
+  function revChart(series, run) {
+    var all = [].concat.apply([], series.map(function (s) { return s.map(function (r) { return r.rev; }); })).concat([run]);
+    var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
+    var step = niceStep((hi - lo) / 4 || 1);
+    var y0 = Math.floor(lo * 0.97 / step) * step, y1 = Math.ceil(hi * 1.02 / step) * step;
+    function y(v) { return T + (H - T - B) * (1 - (v - y0) / (y1 - y0)); }
+    var out = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Line chart of monthly revenue for three scenarios">';
+    for (var v = y0; v <= y1 + step / 2; v += step) {
+      out += '<line class="ax" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/>';
+      out += '<text class="tick" x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + money(v) + '</text>';
+    }
+    MONTHS.forEach(function (m, i) { out += '<text class="tick" x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + m + '</text>'; });
+    out += '<line class="ln l-run" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(run) + '" y2="' + y(run) + '"/>';
+    ['l-cons', 'l-agg', 'l-base'].forEach(function (cls, idx) {
+      var rows = series[[0, 2, 1][idx]];
+      out += '<polyline class="ln ' + cls + '" points="' + rows.map(function (r, i) { return x(i) + ',' + y(r.rev); }).join(' ') + '"/>';
+    });
+    var last = series[1][11];
+    out += '<circle cx="' + x(11) + '" cy="' + y(last.rev) + '" r="4" style="fill:var(--accent)"/>';
+    return out + '</svg>';
+  }
+
+  function utilChart(rows) {
+    var hi = Math.max(1.1, Math.ceil((Math.max.apply(null, rows.map(function (r) { return r.util; })) + 0.05) * 10) / 10);
+    function y(v) { return T + (H - T - B) * (1 - v / hi); }
+    var bw = (W - L - R) / 12 * 0.62;
+    var out = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Bar chart of monthly printer utilization with an 85 percent planning line">';
+    var tick = hi > 2 ? 0.5 : 0.25;
+    for (var v = 0; v <= hi + 0.001; v += tick) {
+      out += '<line class="ax" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/>';
+      out += '<text class="tick" x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + pct(v) + '</text>';
+    }
+    rows.forEach(function (r, i) {
+      var cls = r.util > 1 ? 'b-over' : r.util >= PLAN_LINE ? 'b-warn' : 'b-ok';
+      out += '<rect class="' + cls + '" x="' + (x(i) - bw / 2) + '" y="' + y(r.util) + '" width="' + bw + '" height="' + (y(0) - y(r.util)) + '" rx="2"/>';
+      out += '<text class="tick" x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + MONTHS[i] + '</text>';
+    });
+    out += '<line class="thresh" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(PLAN_LINE) + '" y2="' + y(PLAN_LINE) + '"/>';
+    out += '<text class="tlabel" x="' + (L + 6) + '" y="' + (y(PLAN_LINE) - 6) + '">85% planning line</text>';
+    return out + '</svg>';
+  }
+
+  function pill(u) {
+    var c = u > 1 ? 'p-over' : u >= PLAN_LINE ? 'p-warn' : 'p-ok';
+    return '<span class="pill ' + c + '">' + pct(u) + '</span>';
+  }
+
+  function render() {
+    var p = read();
+    document.getElementById('base-o').textContent = int(p.base);
+    document.getElementById('price-o').textContent = '$' + p.price;
+    document.getElementById('growth-o').textContent = p.growth.toFixed(1) + '%';
+    document.getElementById('adds-o').textContent = p.adds;
+    document.getElementById('perAcct-o').textContent = p.perAcct;
+    document.getElementById('inc-o').textContent = p.inc.toFixed(1) + '%';
+    document.getElementById('printers-o').textContent = p.printers;
+    document.getElementById('capPer-o').textContent = int(p.capPer);
+
+    var cons = forecast(p, SCEN.cons), base = forecast(p, SCEN.base), agg = forecast(p, SCEN.agg);
+    function sum(rows) { return rows.reduce(function (a, r) { return a + r.rev; }, 0); }
+    var fyB = sum(base), runMonthly = p.base * p.price, run = runMonthly * 12;
+    document.getElementById('k-rev').textContent = money(fyB);
+    document.getElementById('k-range').textContent = money(sum(cons)) + ' to ' + money(sum(agg)) + ' across scenarios';
+    var gr = fyB / run - 1;
+    document.getElementById('k-growth').textContent = (gr >= 0 ? '+' : '') + pct(gr, 1);
+
+    var peakIdx = 0;
+    base.forEach(function (r, i) { if (r.util > base[peakIdx].util) peakIdx = i; });
+    document.getElementById('k-util').textContent = pct(base[peakIdx].util);
+    document.getElementById('k-peak').textContent = 'in ' + MONTHS[peakIdx] + ', ' + int(base[peakIdx].cases) + ' cases';
+
+    var first = -1;
+    base.forEach(function (r, i) { if (first < 0 && r.util >= PLAN_LINE) first = i; });
+    var need = Math.ceil(base[peakIdx].cases / (p.capPer * PLAN_LINE));
+    document.getElementById('k-printer').textContent = first < 0 ? 'Not needed' : MONTHS[first];
+    document.getElementById('k-need').textContent = first < 0
+      ? 'Base case stays under 85% all year'
+      : need + ' printers keep the peak under 85% (' + (need - p.printers) + ' more)';
+
+    document.getElementById('rev-chart').innerHTML = revChart([cons, base, agg], runMonthly);
+    document.getElementById('util-chart').innerHTML = utilChart(base);
+
+    var html = '<thead><tr><th>Month</th><th>Cases, base</th><th>Conservative</th><th>Base</th><th>Aggressive</th><th>Utilization</th></tr></thead><tbody>';
+    base.forEach(function (r, i) {
+      html += '<tr><td>' + MONTHS[i] + '</td><td>' + int(r.cases) + '</td><td>' + money(cons[i].rev) + '</td><td>' + money(r.rev) + '</td><td>' + money(agg[i].rev) + '</td><td>' + pill(r.util) + '</td></tr>';
+    });
+    html += '</tbody><tfoot><tr><td>Year</td><td>' + int(base.reduce(function (a, r) { return a + r.cases; }, 0)) + '</td><td>' + money(sum(cons)) + '</td><td>' + money(fyB) + '</td><td>' + money(sum(agg)) + '</td><td></td></tr></tfoot>';
+    document.getElementById('table').innerHTML = html;
+  }
+
+  function reset() {
+    Object.keys(DEFAULTS).forEach(function (k) { document.getElementById(k).value = DEFAULTS[k]; });
+    render();
+  }
+
+  document.getElementById('controls').addEventListener('input', render);
+  document.getElementById('reset').addEventListener('click', reset);
+  reset();
+})();
+</script>
+</body>
+</html>

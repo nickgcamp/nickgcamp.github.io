@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Resume · Nick Campuzano</title>
+<meta name="description" content="Resume of Nick Campuzano: FP&A, forecasting, financial modeling, SQL, Python and automation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">Nick Campuzano<span>.</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="resume.html" aria-current="page">Resume</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="wrap resume">
+      <div class="resume-head">
+        <div style="display:grid;gap:8px">
+          <span class="eyebrow">Resume</span>
+          <h1>Nicholas Campuzano</h1>
+          <p class="mono" style="color:var(--muted);font-size:.85rem">Minneapolis, MN · nickgcamp.com · <a href="https://www.linkedin.com/in/nickgcamp">linkedin.com/in/nickgcamp</a> · <a href="https://github.com/nickgcamp">github.com/nickgcamp</a></p>
+        </div>
+        <a class="btn primary" href="assets/Nicholas_Campuzano_Resume.pdf">Download PDF</a>
+      </div>
+
+      <section>
+        <h2>Summary</h2>
+        <div class="content">
+          <p>Analyst who builds the forecasts and models leaders plan with, and the data and automation behind them. At an orthodontic lab and medical device manufacturer, built the revenue forecast and capacity plan, modeled product-mix conversion for a national account and automated recurring reporting. Previously three years as a capital markets trading analyst on a $5.5B mortgage pipeline, building bid, DCF and IRR models. Physics and computer science background.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+        <div class="content">
+          <div class="job">
+            <div class="job-top"><h3>Decision Support Analyst</h3><span class="when">Jan 2025 – Nov 2026</span></div>
+            <p class="where">Partners Dental Solutions · Chanhassen, MN</p>
+            <p class="note">Forecasting, reporting and automation at an orthodontic lab and medical device manufacturer. Moved up from the production floor after 10 months.</p>
+            <ul>
+              <li>Built the 2026 revenue forecast and capacity plan, with growth scenarios and printer utilization by product line, and supported budgeting and quarterly planning.</li>
+              <li>Reviewed monthly financials against the forecast and reset assumptions for task time, production costs, tariffs and procurement.</li>
+              <li>Modeled product-mix conversion for a national account and built the customer-facing savings dashboard behind the pitch.</li>
+              <li>Automated monthly revenue, bi-weekly intake and quarterly shipment reporting, saving about 10 hours of manual work a week.</li>
+              <li>Built a reporting database joining finance, sales, shipping, customer service, design and manufacturing data, with a nightly SQL Server to PostgreSQL ETL that keeps reporting up through source-system outages.</li>
+              <li>Designed and shipped an internal operations platform (Python, FastAPI, PostgreSQL) with modules for collections, remakes, workload and case tracking.</li>
+              <li>Built a barcode scan station that logs technician tasks and feeds labor-efficiency reporting, and led the rollout of the lab's first inventory system with lot number tracking.</li>
+              <li>Built an automation pipeline that takes a submitted appliance prescription through check-in, design, QC and nesting onto the 3D printers, with no human touch until after printing.</li>
+              <li>Built Claude skills and agent workflows that automate recurring analysis and reporting.</li>
+            </ul>
+          </div>
+          <div class="job">
+            <div class="job-top"><h3>Trading Analyst, Capital Markets</h3><span class="when">May 2020 – Sep 2023</span></div>
+            <p class="where">Finance of America · Saint Paul, MN</p>
+            <ul>
+              <li>Built and maintained a $5.5B annual reverse mortgage pipeline, aggregating loan data behind daily bid and pricing decisions.</li>
+              <li>Optimized the loan-level bid model, helping the firm become the largest HECM wholesale buyer in 2021 (30% market share, $3.3B).</li>
+              <li>Built a reusable object-oriented DCF/IRR model in Python for Fix-n-Flip loans.</li>
+              <li>Modeled MBS and REMIC structures in Intex.</li>
+              <li>Automated a daily capital markets summary for senior leadership.</li>
+            </ul>
+          </div>
+          <div class="job">
+            <div class="job-top"><h3>Space Physics Research Analyst</h3><span class="when">May 2017 – May 2020</span></div>
+            <p class="where">Augsburg University Physics Department · Minneapolis, MN</p>
+            <ul>
+              <li>Built Python, MATLAB and SQL pipelines integrating satellite and ground magnetometer data.</li>
+              <li>Co-authored a paper in the Journal of Geophysical Research: Space Physics (2018).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Projects</h2>
+        <div class="content">
+          <div class="job">
+            <div class="job-top"><h3>Job alert tool</h3><span class="when"><a href="https://github.com/nickgcamp/job-alert-tool-2">GitHub</a></span></div>
+            <p>Python app that checks company job boards (Greenhouse, Lever, Ashby, Workday) every hour, stores what it has seen, filters new postings by title and location, optionally scores fit against a resume with Claude, and sends email or phone alerts. Runs on GitHub Actions, with tests.</p>
+          </div>
+          <div class="job">
+            <div class="job-top"><h3>Printed daily brief</h3></div>
+            <p>A Python pipeline that turns my notes, calendar, reminders, market closes, scores and weather into a print-ready newspaper that prints at home each morning, with a daily crossword generator.</p>
+          </div>
+          <div class="job">
+            <div class="job-top"><h3>Triathlon training app</h3></div>
+            <p>Merges Garmin and Apple Watch data into a live training dashboard. A planner script builds each next session from recent workouts and the plan, then pushes it to workout apps and equipment.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <div class="content skills-grid">
+          <div><b>Finance and modeling</b><span>Revenue forecasting, scenario and capacity modeling, budgeting support, variance analysis, DCF and IRR modeling, MBS/REMIC modeling, Bloomberg, Intex</span></div>
+          <div><b>Excel and BI</b><span>Advanced Excel, Tableau, Power BI, Looker Studio, executive reporting and dashboards</span></div>
+          <div><b>Data and automation</b><span>SQL (SQL Server, PostgreSQL), Python (pandas, FastAPI), ETL pipelines, data modeling, Git, Claude agent workflows</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        <div class="content">
+          <div class="job">
+            <div class="job-top"><h3>B.S., Physics and Computer Science</h3><span class="when">May 2020</span></div>
+            <p class="where">Augsburg University · Minneapolis, MN · double major</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Nick Campuzano</span>
+    <span>Plain HTML, CSS and JavaScript on GitHub Pages</span>
+  </div>
+</footer>
+
+</body>
+</html>
