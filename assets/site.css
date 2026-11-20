@@ -401,3 +401,18 @@ button.icon-link { padding: 0; }
 .flow .branch { display: grid; gap: 8px; }
 .flow-loop { margin: 0; font-size: .9rem; color: var(--muted); }
 .flow-loop span { color: var(--accent); font-weight: 700; margin-right: 4px; }
+
+/* Photos */
+.intro { display: flex; align-items: center; gap: 18px; }
+.intro picture, .resume-id picture { flex: none; }
+.avatar { display: block; width: 88px; height: 88px; border-radius: 50%; object-fit: cover; flex: none; background: var(--thumb); box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent); }
+.about-side { display: grid; gap: 22px; align-content: start; }
+.portrait img { display: block; width: 100%; height: auto; border-radius: var(--radius); background: var(--thumb); }
+.resume-id { display: flex; align-items: center; gap: 18px; min-width: 0; }
+.resume-id .avatar { width: 72px; height: 72px; }
+@media (max-width: 820px) { .portrait { max-width: 340px; } }
+@media (max-width: 520px) {
+  .intro { align-items: flex-start; gap: 14px; }
+  .avatar { width: 64px; height: 64px; }
+  .resume-id .avatar { width: 60px; height: 60px; }
+}
