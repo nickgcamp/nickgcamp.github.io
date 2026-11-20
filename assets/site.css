@@ -68,8 +68,8 @@ img { max-width: 100%; height: auto; display: block; }
 a { color: var(--accent); text-underline-offset: 3px; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-h1, h2, h3 { font-family: var(--f-display); line-height: 1.1; text-wrap: balance; margin: 0; letter-spacing: -0.015em; font-stretch: 108%; }
-h1 { font-size: var(--step-4); font-weight: 800; line-height: 1.04; letter-spacing: -0.03em; }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.1; text-wrap: balance; margin: 0; letter-spacing: -0.005em; }
+h1 { font-size: var(--step-4); font-weight: 800; line-height: 1.04; letter-spacing: -0.015em; }
 h2 { font-size: var(--step-3); font-weight: 800; letter-spacing: -0.025em; }
 h3 { font-size: var(--step-2); font-weight: 750; }
 h1 em, h2 em { font-style: normal; color: var(--accent); }
