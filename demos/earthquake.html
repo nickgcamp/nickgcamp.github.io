@@ -20,8 +20,9 @@
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
-<link rel="preload" href="../assets/fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="../assets/fonts/poppins-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <script src="../assets/site.js" defer></script>
 <style>
@@ -33,8 +34,8 @@
   --land: #f1f0eb; --land-nb: #f7f6f2; --sea: #eef1f4; --fault: #3a2f52;
   --red: #d23b3b; --yellow: #e2a919; --green: #2f9a63;
   --red-text: #b42f2f; --yellow-text: #7d5c00; --green-text: #1d7a4e;
-  --f-display: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --f-body: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --f-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
   --radius: 18px; --radius-sm: 10px;
 }
@@ -55,7 +56,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 1rem; line-height: 1.55; }
-h1, h2, h3 { font-family: var(--f-display); line-height: 1.08; text-wrap: balance; margin: 0; letter-spacing: -0.005em; font-stretch: 110%; }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.08; text-wrap: balance; margin: 0; letter-spacing: -0.02em; font-stretch: 110%; }
 p { margin: 0; }
 a { color: var(--accent); text-underline-offset: 3px; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
@@ -67,7 +68,7 @@ a { color: var(--accent); text-underline-offset: 3px; }
 .banner .wrap { padding-block: 8px; }
 
 .eq-intro { padding-block: 32px 8px; display: grid; gap: 12px; max-width: 62ch; }
-.eq-intro h1 { font-size: clamp(2rem, 5.4vw, 3.4rem); font-weight: 850; font-stretch: 116%; letter-spacing: -0.015em; line-height: .98; }
+.eq-intro h1 { font-size: clamp(2rem, 5.4vw, 3.4rem); font-weight: 850; font-stretch: 116%; letter-spacing: -0.03em; line-height: .98; }
 .eq-intro h1 em { font-style: normal; color: var(--accent); }
 .eq-intro p { color: var(--muted); font-size: 1.05rem; }
 
@@ -79,7 +80,7 @@ a { color: var(--accent); text-underline-offset: 3px; }
 
 .side { display: grid; gap: 20px; min-width: 0; }
 .answer { display: grid; gap: 4px; }
-.answer .big { font-family: var(--f-display); font-weight: 850; font-stretch: 112%; font-size: clamp(2.6rem, 7vw, 4.2rem); line-height: .95; letter-spacing: -0.015em; color: var(--red-text); font-variant-numeric: tabular-nums; }
+.answer .big { font-family: var(--f-display); font-weight: 850; font-stretch: 112%; font-size: clamp(2.6rem, 7vw, 4.2rem); line-height: .95; letter-spacing: -0.03em; color: var(--red-text); font-variant-numeric: tabular-nums; }
 .answer .big small { font-size: .42em; color: var(--muted); font-weight: 700; letter-spacing: -0.01em; }
 .answer .sub { font-size: 1.05rem; color: var(--body); max-width: 36ch; }
 
