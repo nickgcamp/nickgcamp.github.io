@@ -5,9 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Revenue Forecast Planner · Nick Campuzano</title>
 <meta name="description" content="Interactive 12-month revenue forecast and capacity planner with three scenarios, built on made-up sample data.">
+<link rel="canonical" href="https://nickgcamp.com/demos/forecast.html">
+<meta name="theme-color" content="#fbfbf9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1114" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
   .app { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px; padding-block: 28px 56px; align-items: start; }
@@ -68,13 +74,13 @@
 </style>
 </head>
 <body>
-
+<a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="../index.html">Nick Campuzano<span>.</span></a>
     <nav class="nav" aria-label="Main">
-      <a href="../index.html">Home</a>
       <a href="../projects.html" aria-current="page">Projects</a>
+      <a href="../deep-dives/">Deep Dives</a>
       <a href="../resume.html">Resume</a>
       <a href="../index.html#contact">Contact</a>
     </nav>
@@ -82,7 +88,7 @@
 </header>
 <div class="demo-banner"><div class="wrap">Demo with a fictional company. Every number on this page is made up.</div></div>
 
-<main class="wrap">
+<main class="wrap" id="main">
   <div class="intro">
     <span class="eyebrow">Live demo · FP&amp;A</span>
     <h1 style="font-size:var(--step-3)">Revenue forecast planner</h1>
@@ -184,8 +190,12 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <span>© 2026 Nick Campuzano</span>
-    <a href="../projects.html">Back to projects</a>
+    <span>© 2026 Nick Campuzano · Minneapolis, MN</span>
+    <nav aria-label="Footer">
+      <a href="https://www.linkedin.com/in/nickgcamp">LinkedIn</a>
+      <a href="https://github.com/nickgcamp">GitHub</a>
+      <a href="../assets/Nicholas_Campuzano_Resume.pdf">Resume PDF</a>
+    </nav>
   </div>
 </footer>
 
