@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fault line risk map · Nick Campuzano</title>
-<meta name="description" content="How close is each home to a fault line? An interactive rebuild of an overnight mortgage-pool risk tool, using 1,000 made-up California homes and public fault data.">
+<meta name="description" content="How close is each home to a fault line? An interactive rebuild of an overnight mortgage-pool risk tool, using 1,000 illustrative California homes and public fault data.">
 <link rel="canonical" href="https://nickgcamp.com/demos/earthquake.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nick Campuzano">
 <meta property="og:title" content="Fault line risk map · Nick Campuzano">
-<meta property="og:description" content="How close is each home to a fault line? An interactive rebuild of an overnight mortgage-pool risk tool, using 1,000 made-up California homes and public fault data.">
+<meta property="og:description" content="How close is each home to a fault line? An interactive rebuild of an overnight mortgage-pool risk tool, using 1,000 illustrative California homes and public fault data.">
 <meta property="og:url" content="https://nickgcamp.com/demos/earthquake.html">
 <meta property="og:image" content="https://nickgcamp.com/assets/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -165,7 +165,6 @@ input[type=range] { width: 100%; margin: 0; }
     </div>
   </div>
 </header>
-<div class="banner"><div class="wrap">Demo. Every home on this page is made up, and the risk cutoffs are illustrative.</div></div>
 
 <main class="wrap" id="main">
   <header class="eq-intro">
@@ -258,7 +257,7 @@ input[type=range] { width: 100%; margin: 0; }
   <footer class="notes">
     <h2>About this demo</h2>
     <ul>
-      <li>The homes are 1,000 made-up points clustered around California cities. Street names are fictional, so no real address or loan appears here.</li>
+      <li>Data is illustrative: the homes are 1,000 sample points clustered around California cities.</li>
       <li>The red and yellow cutoffs are illustrative. Move the sliders to set your own.</li>
       <li>The original tool cleaned real addresses with the USPS address API and geocoded them with Google Maps. This demo skips those calls and starts from sample coordinates.</li>
       <li>"Fast-moving" means a fault that slips at least 5 mm a year in the fault model, such as the San Andreas. Distance is straight-line miles to the nearest mapped fault trace.</li>
@@ -376,7 +375,7 @@ input[type=range] { width: 100%; margin: 0; }
     renderStep();
   }
 
-  // Step strip: a deterministic "messy" version of each made-up address
+  // Step strip: a deterministic "messy" version of each sample address
   function rnd(seed) { let s = seed * 9301 + 49297; return () => { s = (s * 16807) % 2147483647; return s / 2147483647; }; }
   const SUFFIX_MESS = { Dr: ['drive', 'dr.', 'drv'], Rd: ['road', 'rd.'], Blvd: ['boulevard', 'blvd.', 'blv'], Way: ['wy', 'way.'], St: ['street', 'str', 'st.'], Ave: ['avenue', 'av', 'ave.'], Ln: ['lane', 'ln.'], Ct: ['court', 'crt'] };
   function typo(word, r) {
