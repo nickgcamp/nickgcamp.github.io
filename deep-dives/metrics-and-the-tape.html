@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Look at the numbers, then go watch the tape · Deep Dives</title>
+<meta name="description" content="What an NBA podcast, a book on metrics and a season of standings taught me about using data without letting it fool me.">
+<link rel="canonical" href="https://nickgcamp.com/deep-dives/metrics-and-the-tape.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nick Campuzano">
+<meta property="og:title" content="Look at the numbers, then go watch the tape · Deep Dives">
+<meta property="og:description" content="What an NBA podcast, a book on metrics and a season of standings taught me about using data without letting it fool me.">
+<meta property="og:url" content="https://nickgcamp.com/deep-dives/metrics-and-the-tape.html">
+<meta property="og:image" content="https://nickgcamp.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#fbfbf9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1114" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<script src="../assets/site.js" defer></script>
+<meta property="article:published_time" content="2026-11-20">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Nick Campuzano<span>.</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="../projects.html">Projects</a>
+      <a href="../deep-dives/" aria-current="page">Deep Dives</a>
+      <a href="../resume.html">Resume</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <div class="social">
+      <a class="icon-link" href="https://www.linkedin.com/in/nickgcamp" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+      <a class="icon-link" href="https://github.com/nickgcamp" aria-label="GitHub"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3"/></svg></a>
+      <button type="button" class="icon-link copy-email" data-copy-email aria-label="Copy email address"><span class="ce-icons" aria-hidden="true"><svg class="ce-mail" viewBox="0 0 24 24" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.8 7.2l8.2 5.8 8.2-5.8"/></svg><svg class="ce-check" viewBox="0 0 24 24" focusable="false"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <article class="wrap">
+    <div class="article">
+      <header class="article-head">
+        <a class="eyebrow" href="./" style="text-decoration:none">← Deep Dives</a>
+        <h1>Look at the numbers, then go watch the tape</h1>
+        <p class="dek">I'm a "just give me the answer" person. A book about metrics and an NBA podcast convinced me the best answers come from a loop between the numbers and my own eyes.</p>
+        <p class="meta-line"><span>By Nick Campuzano</span><time datetime="2026-11-20">Nov 20, 2026</time><span>Data</span><span>8 min read</span></p>
+      </header>
+
+      <section class="takeaway" aria-label="Key takeaway">
+        <span class="eyebrow">Key takeaway</span>
+        <p>Numbers are the best place to start and a bad place to stop. Use them to find what confuses you, go look at the real thing, then come back and check what you saw against the numbers.</p>
+      </section>
+
+      <div class="article-body">
+        <p>I want the answer. I have a physics and computer science background, and my instinct with almost any question is to go find the data and get to something objective. So I've been challenging myself with a book that pushes back on that instinct: <i>The Tyranny of Metrics</i> by Jerry Z. Muller.</p>
+        <p>It isn't an anti-numbers book. Its publisher sums up the argument well: metrics "can be beneficial" when "used as a complement to judgment based on personal experience." The trouble starts when "we've gone from measuring performance to fixating on measuring itself." Some things we care about need exploration, creativity and a certain fuzziness, and forcing a clean number onto them can make them worse.</p>
+        <p>Then I heard the same idea on an NBA podcast. The host said their approach is to look at the data and ask what confuses them, then go watch the games. Sometimes the tape confirms it. Sometimes you realize you watched two plays and decided a guy was good or bad. And early in the season, they said, everything is fuzzier. That stuck with me, so I went and checked it.</p>
+
+        <h2 id="tldr">The short version</h2>
+        <ol class="tldr">
+          <li><b>The best basketball metrics already build in humility.</b> EPM, from Dunks &amp; Threes, leans on a player's expected level early in the season and on what actually happened later.</li>
+          <li><b>Early numbers are right on average and wrong about specific teams.</b> In 2025-26, records on November 15 correlated about 0.87 with final records, but 12 of 30 teams finished at least 10 wins away from their November pace.</li>
+          <li><b>When a number becomes the goal, it stops measuring the thing.</b> That's Goodhart's law, and it shows up in hospitals, sales floors and step counters, not just spreadsheets.</li>
+        </ol>
+
+        <nav class="toc" aria-label="Sections">
+          <a href="#good">What a good metric does</a><a href="#november">November lies a little</a><a href="#loop">The loop</a><a href="#target">When the number is the goal</a><a href="#unmeasured">What doesn't get counted</a><a href="#habits">How I use numbers now</a>
+        </nav>
+
+        <h2 id="good">1. What a good metric gets right</h2>
+        <p>The podcast host is a big fan of <a href="https://dunksandthrees.com/about/epm">Dunks &amp; Threes</a> and its all-in-one stat, EPM (Estimated Plus-Minus). EPM estimates a player's "predicted contribution to the team, in points per 100 possessions." It combines box-score stats, tracking data for defense and possession-level plus-minus.</p>
+        <p>What I like about it is how it handles uncertainty. In the site's own words, "early-season values lean on the expectation, and late-season values on what actually happened," and "a player with few minutes stays close to what they were expected to be." It also notes that "each stat stabilizes at a different rate." So the metric isn't pretending ten games tell the whole story. It blends what it knew before with what it's seeing now.</p>
+        <p>It also holds up. In a 2020 test run by EPM's creator (who disclosed the conflict of interest), EPM explained the next season's team ratings with less error than the other metrics tested, including RPM, RAPTOR, BPM and PER.</p>
+        <p>But even the good ones are estimates, not facts. Jeremias Engelmann, creator of ESPN's Real Plus-Minus, wrote in June 2026 that every popular advanced metric, EPM included, is uncertain about its estimates, and that nobody reports error bars for metrics that include box-score data. Even a long-run plus-minus rating has a wide range: he puts Victor Wembanyama's defense at +5.2, with a 95% range of about 3.0 to 7.4. In his estimates, the smallest error bars go to players with the most minutes and shots. A single number hides all of that.</p>
+
+        <h2 id="november">2. November lies a little</h2>
+        <p>To test the "early season is fuzzy" idea, I pulled every team's record on November 15, 2025, about 13 games into the season, turned it into an 82-game pace, and compared it with where each team actually finished.</p>
+        <figure class="fig">
+          <img src="../assets/img/nba-november-record-vs-final.jpg" alt="Chart of all 30 NBA teams in 2025-26 comparing each team's win pace on November 15, 2025 with its final win total. Oklahoma City was 13-1 (76-win pace) and won 64. Boston was 6-7 (38-win pace) and won 56. Charlotte was 4-9 (25-win pace) and won 44. Milwaukee was 8-6 (47-win pace) and won 32. Minnesota was 8-5 (50-win pace) and won 49." style="width:100%;height:auto;border-radius:10px" loading="lazy">
+          <figcaption>Data: Basketball-Reference.com standings by date, 2025-26 regular season. Pace = November 15 win percentage × 82.</figcaption>
+        </figure>
+        <p>Two things are true at once. The early record wasn't noise: it correlated about 0.87 with the final record, and the Thunder, Pistons and Spurs looked good in November and were good in April. My Timberwolves were 8-5, on a 50-win pace, and won 49.</p>
+        <p>But the average team finished about 8 wins away from its November pace, and 12 of 30 missed by 10 or more. The Celtics started 6-7 and won 56. The Hornets started 4-9 and won 44. The Bucks started 8-6 and won 32. If you'd made a confident call on any of those teams in mid-November, you'd have been wrong by a lot.</p>
+        <p>That's what "fuzzy" means in practice. The data is right about the league and can still be wrong about the team you care about. Small samples behave this way everywhere. Here's an illustration with a shooter whose true skill is 36% from three.</p>
+        <figure class="fig">
+          <span class="fig-title">How much a 36% shooter's percentage can wander</span>
+          <span class="fig-sub">Shaded area: the range a 36% shooter lands in 90% of the time. Line: one simulated shooter.</span>
+          <svg viewBox="0 0 400 230" role="img" aria-label="Illustration: for a true 36% three-point shooter, the range of likely shooting percentages is about plus or minus 16 points after 25 attempts, 8 points after 100, and 4.6 points after 300. One simulated shooter swings widely early and settles near 36%."><line class="c-grid" x1="40" y1="190.0" x2="392" y2="190.0"/><text class="c-lbl" x="34" y="194.0" text-anchor="end">0%</text><line class="c-grid" x1="40" y1="145.0" x2="392" y2="145.0"/><text class="c-lbl" x="34" y="149.0" text-anchor="end">20%</text><line class="c-grid" x1="40" y1="100.0" x2="392" y2="100.0"/><text class="c-lbl" x="34" y="104.0" text-anchor="end">40%</text><line class="c-grid" x1="40" y1="55.0" x2="392" y2="55.0"/><text class="c-lbl" x="34" y="59.0" text-anchor="end">60%</text><line class="c-grid" x1="40" y1="10.0" x2="392" y2="10.0"/><text class="c-lbl" x="34" y="14.0" text-anchor="end">80%</text><text class="c-lbl" x="40.0" y="206" text-anchor="middle">0</text><text class="c-lbl" x="98.7" y="206" text-anchor="middle">50</text><text class="c-lbl" x="157.3" y="206" text-anchor="middle">100</text><text class="c-lbl" x="216.0" y="206" text-anchor="middle">150</text><text class="c-lbl" x="274.7" y="206" text-anchor="middle">200</text><text class="c-lbl" x="333.3" y="206" text-anchor="middle">250</text><text class="c-lbl" x="392.0" y="206" text-anchor="middle">300</text><path class="c-soft" d="M51.7,52.8 L57.6,63.1 L63.5,69.3 L69.3,73.5 L75.2,76.6 L81.1,79.0 L86.9,80.9 L92.8,82.5 L98.7,83.9 L104.5,85.0 L110.4,86.1 L116.3,87.0 L122.1,87.8 L128.0,88.5 L133.9,89.1 L139.7,89.7 L145.6,90.3 L151.5,90.8 L157.3,91.2 L163.2,91.7 L169.1,92.1 L174.9,92.4 L180.8,92.8 L186.7,93.1 L192.5,93.4 L198.4,93.7 L204.3,94.0 L210.1,94.2 L216.0,94.5 L221.9,94.7 L227.7,95.0 L233.6,95.2 L239.5,95.4 L245.3,95.6 L251.2,95.8 L257.1,95.9 L262.9,96.1 L268.8,96.3 L274.7,96.4 L280.5,96.6 L286.4,96.7 L292.3,96.9 L298.1,97.0 L304.0,97.2 L309.9,97.3 L315.7,97.4 L321.6,97.5 L327.5,97.6 L333.3,97.8 L339.2,97.9 L345.1,98.0 L350.9,98.1 L356.8,98.2 L362.7,98.3 L368.5,98.4 L374.4,98.5 L380.3,98.6 L386.1,98.7 L392.0,98.7 L392.0,119.3 L386.1,119.3 L380.3,119.4 L374.4,119.5 L368.5,119.6 L362.7,119.7 L356.8,119.8 L350.9,119.9 L345.1,120.0 L339.2,120.1 L333.3,120.2 L327.5,120.4 L321.6,120.5 L315.7,120.6 L309.9,120.7 L304.0,120.8 L298.1,121.0 L292.3,121.1 L286.4,121.3 L280.5,121.4 L274.7,121.6 L268.8,121.7 L262.9,121.9 L257.1,122.1 L251.2,122.2 L245.3,122.4 L239.5,122.6 L233.6,122.8 L227.7,123.0 L221.9,123.3 L216.0,123.5 L210.1,123.8 L204.3,124.0 L198.4,124.3 L192.5,124.6 L186.7,124.9 L180.8,125.2 L174.9,125.6 L169.1,125.9 L163.2,126.3 L157.3,126.8 L151.5,127.2 L145.6,127.7 L139.7,128.3 L133.9,128.9 L128.0,129.5 L122.1,130.2 L116.3,131.0 L110.4,131.9 L104.5,133.0 L98.7,134.1 L92.8,135.5 L86.9,137.1 L81.1,139.0 L75.2,141.4 L69.3,144.5 L63.5,148.7 L57.6,154.9 L51.7,165.2 Z"/><line x1="40" y1="109.0" x2="392" y2="109.0" style="stroke:var(--muted);stroke-dasharray:4 4"/><path d="M45.9,190.0 L47.0,190.0 L48.2,157.9 L49.4,161.9 L50.6,165.0 L51.7,167.5 L52.9,149.1 L54.1,133.8 L55.3,120.8 L56.4,125.7 L57.6,130.0 L58.8,119.7 L59.9,123.8 L61.1,127.5 L62.3,130.8 L63.5,133.8 L64.6,125.7 L65.8,118.4 L67.0,121.5 L68.2,115.0 L69.3,109.0 L70.5,103.5 L71.7,98.3 L72.9,101.6 L74.0,104.7 L75.2,107.5 L76.4,110.2 L77.5,112.7 L78.7,115.0 L79.9,117.2 L81.1,119.3 L82.2,115.0 L83.4,117.0 L84.6,118.9 L85.8,120.8 L86.9,122.5 L88.1,118.7 L89.3,115.0 L90.5,111.5 L91.6,108.2 L92.8,110.0 L94.0,111.7 L95.1,113.4 L96.3,115.0 L97.5,116.5 L98.7,118.0 L99.8,115.0 L101.0,112.1 L102.2,113.6 L103.4,115.0 L104.5,116.4 L105.7,117.7 L106.9,115.0 L108.1,116.3 L109.2,117.5 L110.4,115.0 L111.6,112.5 L112.7,110.2 L113.9,111.4 L115.1,112.7 L116.3,110.4 L117.4,108.2 L118.6,106.0 L119.8,104.0 L121.0,105.2 L122.1,103.2 L123.3,104.4 L124.5,105.6 L125.7,103.7 L126.8,104.9 L128.0,103.0 L129.2,104.1 L130.3,102.3 L131.5,103.5 L132.7,101.7 L133.9,100.0 L135.0,101.1 L136.2,102.2 L137.4,100.5 L138.6,101.6 L139.7,100.0 L140.9,101.0 L142.1,102.1 L143.3,103.1 L144.4,101.5 L145.6,102.5 L146.8,101.0 L147.9,99.5 L149.1,100.5 L150.3,99.0 L151.5,97.6 L152.6,96.2 L153.8,94.9 L155.0,95.9 L156.2,94.5 L157.3,95.5 L158.5,96.4 L159.7,97.4 L160.9,98.3 L162.0,99.1 L163.2,100.0 L164.4,100.8 L165.5,99.6 L166.7,98.3 L167.9,99.2 L169.1,100.0 L170.2,98.8 L171.4,97.6 L172.6,98.4 L173.8,99.2 L174.9,98.0 L176.1,98.8 L177.3,99.6 L178.5,100.4 L179.6,101.1 L180.8,100.0 L182.0,98.9 L183.1,99.6 L184.3,98.5 L185.5,99.3 L186.7,98.2 L187.8,98.9 L189.0,99.6 L190.2,98.6 L191.4,97.6 L192.5,98.3 L193.7,97.3 L194.9,96.2 L196.1,97.0 L197.2,97.6 L198.4,98.3 L199.6,97.4 L200.7,98.0 L201.9,97.1 L203.1,96.1 L204.3,95.2 L205.4,95.9 L206.6,94.9 L207.8,94.0 L209.0,94.7 L210.1,95.3 L211.3,94.5 L212.5,95.1 L213.7,95.7 L214.8,96.4 L216.0,97.0 L217.2,97.6 L218.3,98.2 L219.5,97.4 L220.7,96.5 L221.9,95.6 L223.0,96.2 L224.2,96.8 L225.4,97.4 L226.6,96.6 L227.7,97.2 L228.9,97.8 L230.1,98.3 L231.3,97.5 L232.4,98.1 L233.6,97.3 L234.8,97.8 L235.9,98.4 L237.1,98.9 L238.3,99.5 L239.5,100.0 L240.6,100.5 L241.8,101.0 L243.0,100.3 L244.2,100.8 L245.3,101.3 L246.5,101.8 L247.7,102.3 L248.9,102.8 L250.0,103.3 L251.2,103.8 L252.4,104.2 L253.5,104.7 L254.7,105.2 L255.9,105.6 L257.1,104.9 L258.2,105.3 L259.4,105.8 L260.6,106.2 L261.8,106.7 L262.9,107.1 L264.1,107.5 L265.3,108.0 L266.5,108.4 L267.6,108.8 L268.8,108.1 L270.0,108.5 L271.1,107.8 L272.3,108.2 L273.5,108.6 L274.7,107.9 L275.8,108.3 L277.0,108.7 L278.2,109.1 L279.4,109.5 L280.5,108.8 L281.7,108.1 L282.9,107.4 L284.1,107.8 L285.2,107.1 L286.4,106.4 L287.6,106.8 L288.7,107.2 L289.9,107.6 L291.1,108.0 L292.3,107.3 L293.4,107.7 L294.6,107.1 L295.8,107.4 L297.0,107.8 L298.1,108.2 L299.3,108.6 L300.5,108.9 L301.7,109.3 L302.8,108.6 L304.0,108.0 L305.2,108.4 L306.3,108.7 L307.5,109.1 L308.7,109.4 L309.9,109.8 L311.0,109.2 L312.2,108.5 L313.4,108.9 L314.6,108.3 L315.7,107.7 L316.9,108.0 L318.1,108.4 L319.3,108.7 L320.4,108.1 L321.6,108.4 L322.8,108.8 L323.9,109.1 L325.1,108.5 L326.3,107.9 L327.5,108.3 L328.6,107.7 L329.8,108.0 L331.0,108.3 L332.2,107.8 L333.3,108.1 L334.5,107.5 L335.7,107.0 L336.9,107.3 L338.0,106.7 L339.2,107.1 L340.4,106.5 L341.5,106.0 L342.7,105.4 L343.9,105.7 L345.1,106.1 L346.2,106.4 L347.4,106.7 L348.6,107.0 L349.8,107.3 L350.9,107.6 L352.1,107.1 L353.3,107.4 L354.5,106.9 L355.6,106.4 L356.8,106.7 L358.0,107.0 L359.1,106.5 L360.3,105.9 L361.5,105.4 L362.7,105.7 L363.8,106.0 L365.0,106.3 L366.2,106.6 L367.4,106.9 L368.5,107.2 L369.7,107.5 L370.9,107.0 L372.1,107.3 L373.2,107.6 L374.4,107.1 L375.6,107.4 L376.7,107.7 L377.9,108.0 L379.1,108.3 L380.3,108.5 L381.4,108.8 L382.6,109.1 L383.8,109.4 L385.0,109.6 L386.1,109.9 L387.3,109.4 L388.5,109.7 L389.7,110.0 L390.8,110.2 L392.0,110.5" class="c-acc-s" style="fill:none;stroke-width:2.2"/><text class="c-lbl" x="392" y="101.0" text-anchor="end">true skill: 36%</text><text class="c-lbl" x="216" y="226" text-anchor="middle">three-point attempts</text></svg>
+          <figcaption>Illustrative, not real player data. The range is about ±16 points after 25 attempts, ±8 after 100 and ±5 after 300.</figcaption>
+        </figure>
+        <p>A great shooter and a bad one can look identical after 25 attempts. One analysis of team shooting in Italy's top league found it took around 300 attempts before the three-point percentage settled within 5%. A player taking seven or eight threes a game needs about 40 games to get to 300.</p>
+
+        <h2 id="loop">3. The loop</h2>
+        <p>So what do you do with numbers you can't fully trust yet? The podcast's answer, and the one I'm adopting, is a loop:</p>
+        <figure class="fig"><span class="fig-title">Data and the tape, back and forth</span><div class="flow"><div class="node"><b>Look at the data</b><span>broad, many games</span></div><span class="arrow" aria-hidden="true">→</span><div class="node"><b>Find what confuses you</b><span>a number that doesn't fit</span></div><span class="arrow" aria-hidden="true">→</span><div class="node"><b>Watch the tape</b><span>the real thing, up close</span></div><span class="arrow" aria-hidden="true">→</span><div class="node"><b>Check the data again</b><span>does it hold beyond two plays?</span></div></div><p class="flow-loop"><span aria-hidden="true">↺</span> Each pass makes the question sharper.</p></figure>
+        <p>The data is good at telling you where to look. The tape is good at telling you why. Neither is enough alone. Pure eye test gives you the "I watched two plays" problem. Pure numbers can't tell you whether a defender's rating is good because of him or because of the four guys around him.</p>
+        <p>The same loop works away from basketball. A dashboard says a process got slower last month. That's the confusion. You go stand where the work happens, or talk to the people doing it, and see what changed. Then you go back to the data and check whether what you saw explains the whole drop or just one bad week.</p>
+
+        <h2 id="target">4. When the number becomes the goal</h2>
+        <p>Muller's bigger worry isn't noisy numbers. It's what happens when people are judged by them. Economist Charles Goodhart put it this way: "Any observed statistical regularity will tend to collapse once pressure is placed upon it for control purposes." The popular version, usually credited to anthropologist Marilyn Strathern, is shorter: "When a measure becomes a target, it ceases to be a good measure."</p>
+        <p>One example in Muller's book is surgical scorecards, which the publisher says "may increase deaths." The worry is easy to see: if surgeons are ranked on death rates, the safest move for a surgeon's numbers is to turn away the sickest patients, the ones who need surgery most.</p>
+        <p>You can find this anywhere a number is tied to a reward:</p>
+        <ul>
+          <li><b>Step counts:</b> laps around the kitchen at 11 p.m. to close the ring.</li>
+          <li><b>Support tickets:</b> "average time to close" improves when tickets get closed fast and reopened later.</li>
+          <li><b>Sales calls:</b> a calls-per-day target gets you lots of short calls.</li>
+          <li><b>Basketball:</b> a player chasing a stat line, padding rebounds that a teammate would have grabbed anyway.</li>
+        </ul>
+        <p>None of these numbers is bad. They just stop meaning what they meant once people start aiming at them.</p>
+
+        <h2 id="unmeasured">5. What doesn't get counted</h2>
+        <p>The flip side is the stuff that's hard to measure, which tends to get treated as if it doesn't matter. Public opinion researcher Daniel Yankelovich described this in a 1971 speech. It's now called the McNamara fallacy, after Robert McNamara, whose Vietnam-era Pentagon tracked things like enemy body counts. Yankelovich laid it out in four steps:</p>
+        <blockquote>"The first step is to measure whatever can be easily measured... The second step is to disregard that which can't be easily measured... The third step is to presume that what can't be measured easily really isn't very important... The fourth step is to say that what can't be easily measured really doesn't exist."<cite>Daniel Yankelovich, 1971</cite></blockquote>
+        <p>Defense is basketball's version of this. A box score counts steals and blocks. It doesn't count the rotation that stopped a pass from ever being thrown. EPM adds player tracking data to its defensive estimate for this kind of reason, but some of what wins games still never shows up in a stat.</p>
+
+        <h2 id="habits">6. How I'm using numbers now</h2>
+        <p>I'm not giving up on data. I'm trying to use it better. Here's the checklist I'm working from:</p>
+        <ol>
+          <li><b>Start with the numbers,</b> and write down what doesn't make sense.</li>
+          <li><b>Ask how much is behind the number.</b> Thirteen games? Twenty-five shots? Ask for a range, not just one value.</li>
+          <li><b>Go look at the real thing:</b> the tape, the process, the customer.</li>
+          <li><b>Come back and check</b> whether what I saw holds up across all the data, not just the two plays I remember.</li>
+          <li><b>When a number becomes a target,</b> ask how someone could hit it without doing the thing it was supposed to measure.</li>
+          <li><b>Remember what isn't in the data.</b> Easy to count and important aren't the same thing.</li>
+        </ol>
+        <p>I still want the answer. I've just accepted that the answer usually comes from going back and forth, not from one number.</p>
+
+        <p class="disclaimer"><b>A note on the data.</b> The team chart uses Basketball-Reference standings for November 15, 2025 and the season's final day, April 12, 2026. The shooting chart is an illustration built from simple probability, not real player data. The podcast host's comments are paraphrased.</p>
+
+        <section class="sources" aria-labelledby="src-h">
+          <h3 id="src-h">Sources and further reading</h3>
+          <ul>
+            <li>Jerry Z. Muller, <i>The Tyranny of Metrics</i> (Princeton University Press), and the publisher's description.</li>
+            <li>Dunks &amp; Threes, "About EPM and Methodology," and "NBA Player Metric Comparison" (June 2020).</li>
+            <li>Jeremias Engelmann, "An NBA first: Introducing standard errors for box-score metrics," via Royce Webb, June 2026.</li>
+            <li>Basketball-Reference.com, 2025-26 NBA standings by date.</li>
+            <li>Basketball Analytics Lab, "Finding Stability: When Early-Season Basketball Analytics Start to Matter," September 2024.</li>
+            <li>Goodhart's law and Strathern's wording, via "A New Morality of Attainment (Goodhart's Law)," Unintended Consequences.</li>
+            <li>"McNamara fallacy," Wikipedia, for Yankelovich's 1971 remarks.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Nick Campuzano · Minneapolis, MN</span>
+    <nav aria-label="Footer">
+      <a href="https://www.linkedin.com/in/nickgcamp">LinkedIn</a>
+      <a href="https://github.com/nickgcamp">GitHub</a>
+      <a href="../assets/Nicholas_Campuzano_Resume.pdf">Resume PDF</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

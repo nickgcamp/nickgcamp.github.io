@@ -15,7 +15,7 @@
     toast.className = "toast";
     toast.innerHTML =
       '<span class="t-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span>' +
-      '<span class="t-text"><b></b><span class="t-addr"></span></span>' +
+      '<span class="t-body"><b></b><span class="t-addr"></span></span>' +
       '<button type="button" class="t-close" aria-label="Close">×</button>';
     toast.querySelector(".t-close").addEventListener("click", hide);
     document.body.append(live, toast);

@@ -382,7 +382,7 @@ button.icon-link { padding: 0; }
 .toast .t-badge svg { width: 18px; height: 18px; fill: none; stroke: var(--accent-ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 22; stroke-dashoffset: 22; }
 .toast.show .t-badge svg { stroke-dashoffset: 0; transition: stroke-dashoffset .4s ease .2s; }
 .toast.manual .t-badge { display: none; }
-.toast .t-text { display: grid; gap: 2px; min-width: 0; }
+.toast .t-body { display: grid; gap: 2px; min-width: 0; }
 .toast b { font-size: .95rem; }
 .toast .t-addr { font-family: var(--f-mono); font-size: .86rem; user-select: all; overflow-wrap: anywhere; min-height: 1.3em; }
 .toast .t-addr.typing::after { content: "▍"; animation: ce-blink .8s steps(1) infinite; }
