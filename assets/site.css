@@ -295,9 +295,10 @@ a.post-card:hover { border-color: var(--accent); }
 .stat.down strong { color: var(--accent); }
 
 .regimes { display: grid; gap: 0; border-top: 1px solid var(--line); }
-.regime { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr) auto; gap: 6px 16px; padding-block: 12px; border-bottom: 1px solid var(--line); align-items: baseline; }
-.regime .when { font-family: var(--f-mono); font-size: .8rem; color: var(--muted); }
-.regime .what { color: var(--body); font-size: .94rem; }
+.regime { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 6px 16px; padding-block: 12px; border-bottom: 1px solid var(--line); align-items: start; }
+.regime .when { grid-column: 1; grid-row: 1; font-family: var(--f-mono); font-size: .8rem; color: var(--muted); padding-top: 2px; }
+.regime .cpl { grid-column: 1; grid-row: 2; justify-self: start; }
+.regime .what { grid-column: 2; grid-row: 1 / span 2; color: var(--body); font-size: .94rem; }
 .regime .what b { color: var(--ink); font-weight: 600; }
 .cpl { font-family: var(--f-mono); font-size: .72rem; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
 .cpl.pos { background: var(--accent-soft); color: var(--ink); }
@@ -341,8 +342,10 @@ a.post-card:hover { border-color: var(--accent); }
   .resume section { grid-template-columns: minmax(0, 1fr); gap: 10px; }
   .skills-grid div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .par div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
-  .regime { grid-template-columns: minmax(0, 1fr) auto; }
-  .regime .what { grid-column: 1 / -1; }
+  .regime { grid-template-columns: auto minmax(0, 1fr); align-items: center; }
+  .regime .when { padding-top: 0; }
+  .regime .cpl { grid-column: 2; grid-row: 1; }
+  .regime .what { grid-column: 1 / -1; grid-row: 2; }
   .section { padding-block: 40px; }
   .case { gap: 20px; }
 }
