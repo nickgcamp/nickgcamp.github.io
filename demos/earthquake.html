@@ -170,12 +170,12 @@ input[type=range] { width: 100%; margin: 0; }
   <header class="eq-intro">
     <span class="eyebrow">Live demo · Risk · Maps</span>
     <h1>How close is each home to a <em>fault line?</em></h1>
-    <p>A buyer asked about earthquake risk in a pool of California mortgages. This rebuilds the overnight tool that answered it, with 1,000 sample homes.</p>
+    <p>A buyer asked about earthquake risk in a pool of California mortgages. This rebuilds the overnight tool that answered it, on 1,000 California homes.</p>
   </header>
 
   <section class="panel" aria-label="Earthquake risk map">
     <div class="map-wrap">
-      <svg id="map" role="img" aria-labelledby="map-title"><title id="map-title">Map of California with fault lines and 1,000 sample homes colored red, yellow or green by distance to the nearest fault</title></svg>
+      <svg id="map" role="img" aria-labelledby="map-title"><title id="map-title">Map of California with fault lines and 1,000 homes colored red, yellow or green by distance to the nearest fault</title></svg>
       <p class="map-caption">Think of each fault like a storm on weather radar. The red band is the part you'd keep an eye on.</p>
       <p class="map-note">Tap any dot to follow that home below.</p>
     </div>
@@ -358,7 +358,7 @@ input[type=range] { width: 100%; margin: 0; }
     const n = { red: 0, yellow: 0, green: 0 };
     homes.forEach((h, k) => { const c = rate(h[key][0]); n[c]++; dots[k].setAttribute('fill', COLORS[c]); });
     $('big').innerHTML = fmt(n.red) + ' <small>of 1,000</small>';
-    $('sub').textContent = `sample homes sit within ${S.red} miles of ${key === 'fast' ? 'a fast-moving fault' : 'a mapped fault'}.`;
+    $('sub').textContent = `homes sit within ${S.red} miles of ${key === 'fast' ? 'a fast-moving fault' : 'a mapped fault'}.`;
     const tot = homes.length;
     $('bar-r').style.flexBasis = (n.red / tot * 100) + '%';
     $('bar-y').style.flexBasis = (n.yellow / tot * 100) + '%';
