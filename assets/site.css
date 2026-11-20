@@ -353,3 +353,51 @@ a.post-card:hover { border-color: var(--accent); }
   * { transition: none !important; animation: none !important; }
   a.work-card:hover { transform: none; }
 }
+
+/* Copy-email button and toast (assets/site.js) */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+button.btn, button.icon-link { font: inherit; cursor: pointer; }
+button.icon-link { padding: 0; }
+.copy-email { position: relative; }
+.ce-icons { display: inline-grid; width: 20px; height: 20px; flex: none; }
+.btn .ce-icons { width: 18px; height: 18px; }
+.ce-icons svg { grid-area: 1 / 1; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .45s cubic-bezier(.2, .8, .2, 1), opacity .25s; }
+.ce-check { opacity: 0; transform: scale(.4) rotate(-25deg); stroke-dasharray: 22; stroke-dashoffset: 22; }
+.is-copied .ce-mail { opacity: 0; transform: translate(10px, -12px) rotate(14deg) scale(.6); }
+.is-copied .ce-check { opacity: 1; transform: none; stroke-dashoffset: 0; transition: transform .45s cubic-bezier(.3, 1.6, .5, 1) .1s, opacity .2s .1s, stroke-dashoffset .35s ease .18s; }
+.ce-label { display: inline-grid; }
+.ce-label > span { grid-area: 1 / 1; transition: opacity .2s, transform .25s; }
+.ce-label .ce-b { opacity: 0; transform: translateY(6px); }
+.is-copied .ce-label .ce-a { opacity: 0; transform: translateY(-6px); }
+.is-copied .ce-label .ce-b { opacity: 1; transform: none; }
+.btn.is-copied { border-color: var(--accent); }
+.icon-link.is-copied { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.ce-burst { position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: var(--accent); pointer-events: none; animation: ce-burst .6s cubic-bezier(.2, .7, .3, 1) forwards; }
+.ce-burst:nth-child(odd) { background: var(--amber); }
+.band .ce-burst { background: var(--accent-soft); }
+@keyframes ce-burst { from { transform: rotate(var(--a)) translateX(10px) scale(1); opacity: 1; } to { transform: rotate(var(--a)) translateX(var(--d)) scale(.3); opacity: 0; } }
+.toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); z-index: 50; display: flex; align-items: center; gap: 12px; max-width: calc(100vw - 32px); padding: 12px 12px 12px 12px; border-radius: 14px; background: var(--ink); color: var(--bg); box-shadow: 0 12px 32px rgba(0, 0, 0, .28); transform: translate(-50%, 140%); opacity: 0; visibility: hidden; transition: transform .45s cubic-bezier(.2, .9, .3, 1.25), opacity .25s, visibility 0s .45s; }
+.toast.show { transform: translate(-50%, 0); opacity: 1; visibility: visible; transition: transform .45s cubic-bezier(.2, .9, .3, 1.25), opacity .25s; }
+.toast .t-badge { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; flex: none; }
+.toast .t-badge svg { width: 18px; height: 18px; fill: none; stroke: var(--accent-ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 22; stroke-dashoffset: 22; }
+.toast.show .t-badge svg { stroke-dashoffset: 0; transition: stroke-dashoffset .4s ease .2s; }
+.toast.manual .t-badge { display: none; }
+.toast .t-text { display: grid; gap: 2px; min-width: 0; }
+.toast b { font-size: .95rem; }
+.toast .t-addr { font-family: var(--f-mono); font-size: .86rem; user-select: all; overflow-wrap: anywhere; min-height: 1.3em; }
+.toast .t-addr.typing::after { content: "▍"; animation: ce-blink .8s steps(1) infinite; }
+@keyframes ce-blink { 50% { opacity: 0; } }
+.toast .t-close { margin-left: 4px; width: 32px; height: 32px; border-radius: 50%; border: 0; background: transparent; color: inherit; font-size: 1.3rem; line-height: 1; cursor: pointer; opacity: .7; }
+.toast .t-close:hover { opacity: 1; }
+.toast :focus-visible { outline-color: var(--bg); }
+@media (prefers-reduced-motion: reduce) {
+  .ce-icons svg, .ce-label > span, .toast, .toast .t-badge svg { transition: none !important; }
+  .toast { transform: translate(-50%, 0); }
+  .ce-burst { display: none; }
+}
+
+/* Flow diagrams inside posts */
+.fig .flow { gap: 8px 6px; }
+.flow .branch { display: grid; gap: 8px; }
+.flow-loop { margin: 0; font-size: .9rem; color: var(--muted); }
+.flow-loop span { color: var(--accent); font-weight: 700; margin-right: 4px; }
