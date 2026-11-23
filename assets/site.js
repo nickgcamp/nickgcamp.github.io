@@ -113,3 +113,61 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", setup);
   else setup();
 })();
+
+/* Back link: go back if the visitor came from another page, otherwise go home. */
+document.addEventListener("click", (e) => {
+  const a = e.target.closest && e.target.closest("[data-back]");
+  if (!a) return;
+  if (document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1) {
+    e.preventDefault(); history.back();
+  }
+});
+
+/* Tap to enlarge: any a[data-lightbox] opens its image full screen. */
+(() => {
+  const links = document.querySelectorAll("a[data-lightbox]");
+  if (!links.length) return;
+  const touch = window.matchMedia("(hover: none)").matches;
+  links.forEach((a) => { const t = a.querySelector(".hint-txt"); if (t) t.textContent = touch ? "Tap to enlarge" : "Click to enlarge"; });
+  const lb = document.createElement("dialog");
+  lb.className = "lightbox";
+  lb.innerHTML = '<div class="lb-scroll"><img alt=""></div><div class="lb-bar"><span class="lb-tip"></span><div class="lb-btns"><button class="lb-btn lb-zoom" type="button">Zoom in</button><button class="lb-btn lb-close" type="button" aria-label="Close">✕</button></div></div>';
+  document.body.appendChild(lb);
+  const scroller = lb.querySelector(".lb-scroll"), img = lb.querySelector("img");
+  const zoomBtn = lb.querySelector(".lb-zoom"), tip = lb.querySelector(".lb-tip");
+  let opener = null;
+  function setBig(on) {
+    lb.classList.toggle("big", on);
+    zoomBtn.textContent = on ? "Fit to screen" : "Zoom in";
+    tip.textContent = on ? (touch ? "Drag to look around" : "Scroll to look around") : (touch ? "Tap the chart to zoom in" : "Click the chart to zoom in");
+  }
+  function hide() { if (lb.close) lb.close(); else { lb.removeAttribute("open"); onClose(); } }
+  function onClose() { document.documentElement.style.overflow = ""; if (opener) opener.focus(); }
+  lb.addEventListener("close", onClose);
+  links.forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault(); opener = a;
+    const src = a.querySelector("img");
+    img.src = a.getAttribute("href");
+    img.alt = (src && src.alt) || "";
+    const w = parseInt(a.dataset.fullWidth || (src && src.getAttribute("width")) || "1400", 10);
+    lb.style.setProperty("--lb-w", Math.max(w, 1000) + "px");
+    lb.setAttribute("aria-label", (a.getAttribute("aria-label") || "Chart") + ", full screen");
+    setBig(false);
+    if (lb.showModal) lb.showModal(); else lb.setAttribute("open", "");
+    document.documentElement.style.overflow = "hidden";
+  }));
+  lb.querySelector(".lb-close").addEventListener("click", hide);
+  zoomBtn.addEventListener("click", () => setBig(!lb.classList.contains("big")));
+  img.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (lb.classList.contains("big")) { setBig(false); return; }
+    const r = img.getBoundingClientRect();
+    const fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+    setBig(true);
+    requestAnimationFrame(() => {
+      scroller.scrollLeft = fx * img.offsetWidth - scroller.clientWidth / 2;
+      scroller.scrollTop = fy * img.offsetHeight - scroller.clientHeight / 2;
+    });
+  });
+  scroller.addEventListener("click", (e) => { if (e.target === scroller) hide(); });
+})();
