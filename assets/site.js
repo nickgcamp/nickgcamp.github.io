@@ -189,10 +189,13 @@ document.addEventListener("click", (e) => {
   const panel = document.querySelector('.contact-panel');
   if (!panel) return;
   const flash = () => { panel.classList.remove('contact-flash'); void panel.offsetWidth; panel.classList.add('contact-flash'); };
-  panel.addEventListener('animationend', () => panel.classList.remove('contact-flash'));
-  document.querySelectorAll('a[href="#contact"]').forEach(a => a.addEventListener('click', () => setTimeout(flash, 350)));
-  if (location.hash === '#contact') setTimeout(flash, 450);
-  window.addEventListener('hashchange', () => { if (location.hash === '#contact') setTimeout(flash, 350); });
+  panel.addEventListener('animationend', e => { if (e.target === panel) panel.classList.remove('contact-flash'); });
+  // pulse once the page has stopped scrolling to the box
+  let waiting = false;
+  const whenStill = () => { if (waiting) return; waiting = true; let last = -1, still = 0, n = 0; const step = () => { const y = scrollY; still = y === last ? still + 1 : 0; last = y; if (still > 4 || ++n > 120) { waiting = false; flash(); } else requestAnimationFrame(step); }; requestAnimationFrame(step); };
+  document.querySelectorAll('a[href="#contact"]').forEach(a => a.addEventListener('click', whenStill));
+  if (location.hash === '#contact') whenStill();
+  window.addEventListener('hashchange', () => { if (location.hash === '#contact') whenStill(); });
 })();
 
 /* Side tracker, reading-progress bar and gentle section reveal */
@@ -285,6 +288,8 @@ document.addEventListener("click", (e) => {
     leftEl.textContent = txt;
     const on = links[cur];
     fill.style.height = on ? (on.offsetTop + 4) + 'px' : '0px';
+    const hb = hdr ? hdr.getBoundingClientRect().bottom : 0;
+    nav.style.top = Math.round(Math.max(hb + 28, art.getBoundingClientRect().top + 14)) + 'px';
     const foot = document.querySelector('.site-footer');
     if (foot) nav.classList.toggle('away', foot.getBoundingClientRect().top < nav.getBoundingClientRect().bottom + 24);
     if (bar) { const p = Math.min(1, Math.max(0, 1 - left / total)); bar.style.transform = 'scaleX(' + (started ? p : 0) + ')'; }
@@ -305,4 +310,98 @@ document.addEventListener("click", (e) => {
     a.addEventListener('click', () => set(a));
   });
   document.querySelectorAll('[data-resume-name]').forEach(el => { el.textContent = name(); });
+})();
+
+/* Section dots grow as the cursor gets close, like the Mac dock */
+(() => {
+  const nav = document.querySelector('.spy');
+  if (!nav || !matchMedia('(hover: hover)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const dots = [...nav.querySelectorAll('.dot')];
+  const links = [...nav.querySelectorAll('a')];
+  const MAX = 2.5, REACH = 80;
+  let raf = 0, px = 0, py = 0, near = false;
+  const reset = () => { dots.forEach(d => d.style.setProperty('--m', 1)); links.forEach(a => a.classList.remove('near')); };
+  const apply = () => {
+    raf = 0;
+    const box = nav.getBoundingClientRect();
+    if (px < box.left - 40 || px > box.right + 60 || py < box.top - REACH || py > box.bottom + REACH) { if (near) { near = false; reset(); } return; }
+    near = true;
+    let best = null, bestD = Infinity;
+    dots.forEach((d, i) => {
+      const r = d.getBoundingClientRect();
+      const cy = r.top + r.height / 2;
+      const dist = Math.abs(py - cy);
+      const t = Math.max(0, 1 - dist / REACH);
+      d.style.setProperty('--m', (1 + (MAX - 1) * t * t * (3 - 2 * t)).toFixed(3));
+      if (dist < bestD) { bestD = dist; best = i; }
+    });
+    links.forEach((a, i) => a.classList.toggle('near', i === best && bestD < 18));
+  };
+  addEventListener('mousemove', e => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(apply); }, { passive: true });
+  document.addEventListener('mouseleave', () => { near = false; reset(); });
+})();
+
+/* Enlarge button on chart figures: opens a copy of the figure full screen */
+(() => {
+  const btns = document.querySelectorAll(".fig .enlarge");
+  if (!btns.length) return;
+  const touch = window.matchMedia("(hover: none)").matches;
+  btns.forEach((b) => { const t = b.querySelector(".hint-txt"); if (t) t.textContent = touch ? "Tap to enlarge" : "Click to enlarge"; });
+  const lb = document.createElement("dialog");
+  lb.className = "lightbox";
+  lb.innerHTML = '<div class="lb-scroll"></div><div class="lb-bar"><span class="lb-tip"></span><div class="lb-btns"><button class="lb-btn lb-zoom" type="button">Zoom in</button><button class="lb-btn lb-close" type="button" aria-label="Close">✕</button></div></div>';
+  document.body.appendChild(lb);
+  const scroller = lb.querySelector(".lb-scroll"), zoomBtn = lb.querySelector(".lb-zoom"), tip = lb.querySelector(".lb-tip");
+  let opener = null, card = null;
+  const fit = () => {
+    if (!card) return;
+    const maxW = scroller.clientWidth - 24, maxH = window.innerHeight - 110;
+    let w = Math.min(maxW, 1100);
+    for (let i = 0; i < 3; i++) {
+      card.style.setProperty("--lb-fit", w + "px");
+      const h = card.offsetHeight;
+      if (h <= maxH) break;
+      w = Math.max(280, Math.floor(w * maxH / h));
+    }
+  };
+  function setBig(on) {
+    lb.classList.toggle("big", on);
+    zoomBtn.textContent = on ? "Fit to screen" : "Zoom in";
+    tip.textContent = on ? (touch ? "Drag to look around" : "Scroll to look around") : (touch ? "Tap the chart to zoom in" : "Click the chart to zoom in");
+  }
+  function hide() { if (lb.close) lb.close(); else { lb.removeAttribute("open"); onClose(); } }
+  function onClose() { document.documentElement.style.overflow = ""; scroller.innerHTML = ""; card = null; if (opener) opener.focus(); }
+  lb.addEventListener("close", onClose);
+  function open(fig, from) {
+    opener = from;
+    card = fig.cloneNode(true);
+    card.classList.add("lb-card");
+    card.removeAttribute("id");
+    card.querySelectorAll("[id]").forEach((n) => { if (n.tagName.toLowerCase() !== "marker") n.removeAttribute("id"); });
+    scroller.innerHTML = ""; scroller.appendChild(card);
+    lb.style.setProperty("--lb-w", (parseInt(fig.dataset.fullWidth || "1200", 10)) + "px");
+    const t = fig.querySelector(".fig-title");
+    lb.setAttribute("aria-label", (t ? t.textContent : "Chart") + ", full screen");
+    setBig(false);
+    if (lb.showModal) lb.showModal(); else lb.setAttribute("open", "");
+    document.documentElement.style.overflow = "hidden";
+    fit();
+    card.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (lb.classList.contains("big")) { setBig(false); fit(); return; }
+      const r = card.getBoundingClientRect();
+      const fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+      setBig(true);
+      requestAnimationFrame(() => {
+        scroller.scrollLeft = fx * card.offsetWidth - scroller.clientWidth / 2;
+        scroller.scrollTop = fy * card.offsetHeight - scroller.clientHeight / 2;
+      });
+    });
+  }
+  btns.forEach((b) => b.addEventListener("click", () => open(b.closest(".fig"), b)));
+  document.querySelectorAll(".fig .zoomable").forEach((z) => z.addEventListener("click", () => { const f = z.closest(".fig"); open(f, f.querySelector(".enlarge")); }));
+  lb.querySelector(".lb-close").addEventListener("click", hide);
+  zoomBtn.addEventListener("click", () => { const on = !lb.classList.contains("big"); setBig(on); if (!on) fit(); });
+  scroller.addEventListener("click", (e) => { if (e.target === scroller) hide(); });
+  window.addEventListener("resize", () => { if (lb.open && !lb.classList.contains("big")) fit(); });
 })();
