@@ -73,17 +73,11 @@ document.addEventListener("click", (e) => {
   addEventListener('scroll', () => { if (!t) { t = true; requestAnimationFrame(() => { t = false; tick(); }); } }, { passive: true });
   addEventListener('resize', tick); addEventListener('load', tick); tick();
 })();
-/* Resume download name carries this month and year, e.g. Nick_Campuzano_Resume_Nov_2026.pdf */
+/* Resume buttons open the PDF in a new tab, so the browser's own viewer handles viewing and saving */
 (() => {
-  const M = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const name = () => { const d = new Date(); return 'Nick_Campuzano_Resume_' + M[d.getMonth()] + '_' + d.getFullYear() + '.pdf'; };
-  const set = a => { const n = name(); a.setAttribute('download', n); a.title = 'Downloads as ' + n; };
   document.querySelectorAll('a[href$="Nick_Campuzano_Resume.pdf"]').forEach(a => {
-    set(a);
-    a.addEventListener('pointerdown', () => set(a));
-    a.addEventListener('click', () => set(a));
+    a.removeAttribute('download'); a.target = '_blank'; a.rel = 'noopener';
   });
-  document.querySelectorAll('[data-resume-name]').forEach(el => { el.textContent = name(); });
 })();
 
 /* Enlarge button on chart figures: opens a copy of the figure full screen */
