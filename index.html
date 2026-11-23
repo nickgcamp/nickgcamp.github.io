@@ -254,6 +254,8 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
   .spy .dot.face { width: 12px; height: 12px; margin-left: -2px; border: 1.5px solid var(--muted); background: var(--surface) url("assets/img/nick-headshot-160.jpg") center / cover no-repeat; will-change: auto; }
   .spy a.on .dot.face { border-color: var(--accent); background: var(--surface) url("assets/img/nick-headshot-160.jpg") center / cover no-repeat; box-shadow: 0 0 0 2px var(--accent-soft); }
   .spy a:hover .dot.face, .spy a.near .dot.face { border-color: var(--accent); }
+  .spy .dot.face { overflow: hidden; }
+  .spy .dot.face img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 }
 </style>
 
@@ -515,7 +517,8 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
   const d = document.querySelector('.spy .dot');
   if (!d) return;
   d.classList.add('face');
-  d.style.setProperty('--face', 'url("assets/img/nick-headshot-160.jpg")');
+  const im = new Image(); im.src = 'assets/img/nick-headshot-160.jpg'; im.alt = ''; im.decoding = 'async';
+  d.appendChild(im);
 })();
 /* Section dots grow as the cursor gets close, like the Mac dock */
 (() => {
