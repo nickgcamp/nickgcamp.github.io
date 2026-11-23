@@ -8,7 +8,6 @@ Plain HTML, CSS and JavaScript. No build step. GitHub Pages serves the files as 
 index.html              Home: the living resume (its own inline styles and scripts)
 projects.html           Project write-ups
 vikings.html            Vikings QBR data graphic
-resume.html             Web resume (PDF in assets/)
 deep-dives/             Blog: list page and posts
 demos/earthquake.html   Fault line risk map (illustrative data)
 demos/forecast.html     Revenue forecast planner (illustrative data)
