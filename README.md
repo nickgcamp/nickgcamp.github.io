@@ -1,17 +1,24 @@
 # nickgcamp.com
 
-Personal site for Nick Campuzano, served at nickgcamp.com: about, resume, projects and two small interactive demos.
+Personal site for Nick Campuzano, served at nickgcamp.com: a living resume, projects, a blog and three small interactive demos.
 
 Plain HTML, CSS and JavaScript. No build step. GitHub Pages serves the files as they are.
 
 ```
-index.html            Home and about
-projects.html         Project write-ups
-resume.html           Web resume (PDF in assets/)
-demos/forecast.html   Revenue forecast planner (made-up data)
-demos/quality.html    Quality dashboard prototype (generated data)
-assets/               Stylesheet, images, resume PDF
+index.html              Home: the living resume (its own inline styles and scripts)
+projects.html           Project write-ups
+vikings.html            Vikings QBR data graphic
+resume.html             Web resume (PDF in assets/)
+deep-dives/             Blog: list page and posts
+demos/earthquake.html   Fault line risk map (illustrative data)
+demos/forecast.html     Revenue forecast planner (illustrative data)
+demos/quality.html      Quality dashboard prototype (illustrative data)
+404.html                Page not found
+assets/                 Shared stylesheet and script, images, resume PDF
+sitemap.xml, robots.txt For search engines
 ```
+
+Charts use one palette: black, white, light and dark gray, light and dark purple, always through the CSS tokens so dark mode works. Bump the `?v=` number on site.css and site.js links after changing them.
 
 ## Run it locally
 

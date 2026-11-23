@@ -22,7 +22,7 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Caveat:wght@600&display=swap">
 
 <style>
 :root {
@@ -154,12 +154,11 @@ footer a { color: var(--muted); }
 /* Pinned header, Contact button and contact panel (Nov 23) */
 html { scroll-padding-top: var(--hdr-h, 112px); }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-.site-header { position: sticky; top: 0; z-index: 40; background: var(--bg); transition: box-shadow .2s; }
 .top { position: sticky; top: 0; z-index: 40; background: var(--paper, var(--bg)); margin-inline: calc(-1 * clamp(20px, 4vw, 48px)); padding-inline: clamp(20px, 4vw, 48px); border-radius: 24px 24px 0 0; transition: box-shadow .2s, border-radius .2s; }
-.site-header.stuck, .top.stuck { box-shadow: 0 1px 0 var(--line), 0 10px 20px -16px rgba(0, 0, 0, .35); }
+.top.stuck { box-shadow: 0 1px 0 var(--line), 0 10px 20px -16px rgba(0, 0, 0, .35); }
 .top.stuck { border-radius: 0; }
-.nav a.nav-cta, .top nav a.nav-cta { gap: 6px; background: var(--accent); color: var(--accent-ink); font-weight: 600; padding-inline: 14px; }
-.nav a.nav-cta:hover, .top nav a.nav-cta:hover { background: var(--accent); filter: brightness(1.08); }
+.top nav a.nav-cta { gap: 6px; background: var(--accent); color: var(--accent-ink); font-weight: 600; padding-inline: 14px; }
+.top nav a.nav-cta:hover { background: var(--accent); filter: brightness(1.08); }
 .nav-cta svg, .btn .mail { width: 16px; height: 16px; flex: none; }
 .contact-panel { margin-top: 6px; padding: 20px clamp(16px, 3vw, 26px) 22px; border: 1px solid var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 16px; background: var(--accent-soft); background: color-mix(in srgb, var(--accent-soft) 45%, transparent); max-width: 640px; }
 .contact-panel .talk { font-family: var(--f-display); font-weight: 800; font-size: 1.5rem; line-height: 1.2; color: var(--ink); margin: 0 0 4px; }
@@ -180,20 +179,18 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
 @media (prefers-reduced-motion: reduce) { .contact-flash { animation: none; box-shadow: 0 0 0 2px var(--accent); } }
 .contact-panel .btn svg { width: 16px; height: 16px; }
 .contact-panel .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-.visual-col { top: var(--hdr-h, 112px); }
-.skip { z-index: 60; }
-.contact-panel .btn, .nav a.nav-cta, .top nav a.nav-cta { white-space: nowrap; }
+.contact-panel .btn, .top nav a.nav-cta { white-space: nowrap; }
 @media (max-width: 860px) {
-  .site-header .wrap, .top { padding-block: 10px; row-gap: 8px; }
+  .top { padding-block: 10px; row-gap: 8px; }
   .top { margin-inline: -18px; padding-inline: 18px; border-radius: 18px 18px 0 0; }
-  .site-header .nav a, .top nav a { min-height: 40px; }
+  .top nav a { min-height: 40px; }
 }
 
 /* headshot beside the name */
 .who { display: flex; align-items: center; gap: 18px 22px; flex-wrap: wrap; }
 .who .avatar { width: 104px; height: 104px; border-radius: 50%; object-fit: cover; display: block; border: 3px solid var(--paper, var(--bg)); box-shadow: 0 0 0 1px var(--card-line), 0 6px 18px -8px var(--shadow); }
 .who > div { min-width: 0; }
-.skip { position: absolute; left: -9999px; top: 8px; background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 999px; z-index: 10; }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 999px; z-index: 60; }
 .skip:focus { left: 16px; }
 .nav-pdf { gap: 6px; border: 1px solid var(--line); }
 .copy.done { text-decoration: none; }
@@ -251,8 +248,8 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
 
 /* Summary dot shows Nick's headshot (Nov 23) */
 @media (min-width: 1240px) {
-  .spy .dot.face { width: 12px; height: 12px; margin-left: -2px; border: 1.5px solid var(--muted); background: var(--surface) url("assets/img/nick-headshot-160.jpg") center / cover no-repeat; will-change: auto; }
-  .spy a.on .dot.face { border-color: var(--accent); background: var(--surface) url("assets/img/nick-headshot-160.jpg") center / cover no-repeat; box-shadow: 0 0 0 2px var(--accent-soft); }
+  .spy .dot.face { width: 12px; height: 12px; margin-left: -2px; border: 1.5px solid var(--muted); background: transparent; will-change: auto; }
+  .spy a.on .dot.face { border-color: var(--accent); background: transparent; box-shadow: 0 0 0 2px var(--accent-soft); }
   .spy a:hover .dot.face, .spy a.near .dot.face { border-color: var(--accent); }
   .spy .dot.face { overflow: hidden; }
   .spy .dot.face img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
@@ -282,7 +279,7 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
       <p class="role">Financial and data analyst</p>
       <div class="contact-line">
         <span>Minneapolis, MN</span>
-        <span><span data-email-text>Email</span> <button class="copy" type="button" data-email>copy</button></span>
+        <span><span data-email-text>Email</span> <button class="copy" type="button" data-email aria-live="polite">copy</button></span>
       </div>
       <span class="open">Open to FP&amp;A and BI roles · Twin Cities or remote</span>
       </div>
@@ -347,7 +344,7 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
   </section>
 
   <section aria-labelledby="h-dd">
-    <div class="row"><h2 id="h-dd">Deep Dives</h2><span class="gap"></span></div>
+    <div class="row"><h2 id="h-dd">Blog</h2><span class="gap"></span></div>
     <div class="row"><p class="bullet"><a class="lk" href="deep-dives/how-i-use-ai-every-day.html">How I use AI every day</a><span class="tag">8 min</span></p><span class="gap"></span></div>
     <div class="row">
       <p class="bullet"><a class="lk" href="deep-dives/metrics-and-the-tape.html">Look at the numbers, then go watch the tape</a><span class="tag">8 min</span></p>
@@ -372,7 +369,7 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
     <div class="row"><h2 id="h-edu">Education</h2><span class="gap"></span></div>
     <div class="row"><div class="job-head" style="margin-top:0"><h3>B.S., Physics and Computer Science</h3><span class="dates">May 2020</span></div><span class="gap"></span></div>
     <div class="row"><p class="org">Augsburg University · Minneapolis, MN · double major</p><span class="gap"></span></div>
-    <div class="row"><p class="bullet paper"><a class="lk" href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018JA025984" target="_blank" rel="noopener" title="MMS, Van Allen Probes, GOES 13, and Ground-Based Magnetometer Observations of EMIC Wave Events Before, During, and After a Modest Interplanetary Shock" aria-label="Co-author: MMS, Van Allen Probes, GOES 13, and Ground-Based Magnetometer Observations of EMIC Wave Events Before, During, and After a Modest Interplanetary Shock, Journal of Geophysical Research: Space Physics, 2018 (opens the journal page)">Co-author: Spacecraft observations of EMIC waves after an interplanetary shock</a>, <i>Journal of Geophysical Research: Space Physics</i>, 2018</p><span class="gap"></span></div>
+    <div class="row"><p class="bullet paper"><a class="lk" href="https://doi.org/10.1029/2018JA025984" target="_blank" rel="noopener" title="MMS, Van Allen Probes, GOES 13, and Ground-Based Magnetometer Observations of EMIC Wave Events Before, During, and After a Modest Interplanetary Shock" aria-label="Co-author: MMS, Van Allen Probes, GOES 13, and Ground-Based Magnetometer Observations of EMIC Wave Events Before, During, and After a Modest Interplanetary Shock, Journal of Geophysical Research: Space Physics, 2018 (opens the journal page)">Co-author: Spacecraft observations of EMIC waves after an interplanetary shock</a>, <i>Journal of Geophysical Research: Space Physics</i>, 2018</p><span class="gap"></span></div>
   </section>
 
   <section aria-labelledby="h-off">
@@ -396,7 +393,7 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
         <div class="contact">
           <a class="btn primary" href="#contact" data-mailto><svg class="mail" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>Email me</span></a>
           <a class="btn" href="https://www.linkedin.com/in/nickgcamp"><svg class="li" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg><span>Message me on LinkedIn</span></a>
-          <button class="btn" type="button" data-email>Copy my email</button>
+          <button class="btn" type="button" data-email aria-live="polite">Copy my email</button>
           <a class="btn nav-pdf" href="assets/Nick_Campuzano_Resume.pdf" aria-label="Download resume (PDF)"><svg class="dl" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 11v6M9 14.5l3 3 3-3"/></svg><span>Resume</span></a>
         </div>
       </div>
