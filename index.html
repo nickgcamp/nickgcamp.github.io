@@ -230,13 +230,6 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
   .reveal-on main > section { opacity: 0; transform: translateY(16px); transition: opacity .5s ease-out, transform .5s ease-out; }
   .reveal-on main > section.in { opacity: 1; transform: none; }
 }
-/* Summary dot shows Nick's headshot */
-(() => {
-  const d = document.querySelector('.spy .dot');
-  if (!d) return;
-  d.classList.add('face');
-  d.style.setProperty('--face', 'url("assets/img/nick-headshot-160.jpg")');
-})();
 /* Section dots grow as the cursor gets close, like the Mac dock (Nov 23) */
 @media (min-width: 1240px) {
   .spy { gap: 0; }
@@ -517,6 +510,13 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
   document.querySelectorAll('[data-resume-name]').forEach(el => { el.textContent = name(); });
 })();
 </script><script>
+/* Summary dot shows Nick's headshot */
+(() => {
+  const d = document.querySelector('.spy .dot');
+  if (!d) return;
+  d.classList.add('face');
+  d.style.setProperty('--face', 'url("assets/img/nick-headshot-160.jpg")');
+})();
 /* Section dots grow as the cursor gets close, like the Mac dock */
 (() => {
   const nav = document.querySelector('.spy');
