@@ -458,7 +458,7 @@ button.icon-link { padding: 0; }
 .back-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; font-size: .95rem; color: var(--accent); text-decoration: none; }
 .back-link:hover { text-decoration: underline; }
 @media (max-width: 820px) {
-  .site-header .nav { flex-basis: 100%; margin-left: -13px; }
+  .site-header .nav { flex-basis: 100%; margin-left: 0; }
 }
 
 /* ---- Tap to enlarge (any chart wrapped in a.zoom[data-lightbox]) ---- */
