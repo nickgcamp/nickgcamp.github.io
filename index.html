@@ -169,12 +169,12 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
 .contact-panel .contact { margin-top: 14px; }
 .contact-panel .btn { gap: 8px; }
 .contact-panel .btn svg { fill: none; stroke: currentColor; }
-.contact-panel .btn svg.li { fill: #0a66c2; stroke: none; }
+.contact-panel .btn svg.li { fill: currentColor; stroke: none; }
 .email-btn { position: relative; justify-content: center; transition: transform .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease; }
 .email-btn .ok { display: none; }
 .email-btn.copied .mail { display: none; }
 .email-btn.copied .ok { display: block; }
-.contact-panel .btn.email-btn.copied { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.contact-panel .btn.email-btn.copied { background: var(--paper, var(--bg)); color: var(--accent); border-color: var(--accent); filter: none; }
 .email-btn.pop { animation: email-pop .42s ease; }
 @keyframes email-pop { 0% { transform: scale(1); } 35% { transform: scale(.9); } 70% { transform: scale(1.03); } 100% { transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { .email-btn { transition: none; } .email-btn.pop { animation: none; } }
@@ -190,7 +190,8 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
 }
 @media (prefers-reduced-motion: reduce) { .contact-flash { animation: none; box-shadow: 0 0 0 2px var(--accent); } }
 .contact-panel .btn svg { width: 16px; height: 16px; }
-.contact-panel .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.contact-panel .btn { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.contact-panel .btn:hover { border-color: var(--accent); filter: brightness(1.1); }
 .contact-panel .btn, .top nav a.nav-cta { white-space: nowrap; }
 @media (max-width: 860px) {
   .top { padding-block: 10px; row-gap: 8px; }
