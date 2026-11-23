@@ -169,7 +169,15 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
 .contact-panel .contact { margin-top: 14px; }
 .contact-panel .btn { gap: 8px; }
 .contact-panel .btn svg { fill: none; stroke: currentColor; }
-.contact-panel .btn svg.li { fill: currentColor; stroke: none; }
+.contact-panel .btn svg.li { fill: #0a66c2; stroke: none; }
+.email-btn { position: relative; justify-content: center; transition: transform .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease; }
+.email-btn .ok { display: none; }
+.email-btn.copied .mail { display: none; }
+.email-btn.copied .ok { display: block; }
+.contact-panel .btn.primary.email-btn.copied { background: var(--paper, var(--bg)); color: var(--accent); border-color: var(--accent); }
+.email-btn.pop { animation: email-pop .42s ease; }
+@keyframes email-pop { 0% { transform: scale(1); } 35% { transform: scale(.9); } 70% { transform: scale(1.03); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .email-btn { transition: none; } .email-btn.pop { animation: none; } }
 .contact-panel { --cg: color-mix(in srgb, var(--accent) 38%, transparent); }
 .contact-flash { animation: contact-pulse 2.4s ease-in-out 1; }
 @keyframes contact-pulse {
@@ -394,10 +402,9 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
         <div class="talk-head"><img class="talk-face" src="assets/img/nick-headshot-160.jpg" width="56" height="56" alt="" loading="lazy" decoding="async"><p class="talk">Let's talk.</p></div>
         <p class="summary">Email me or message me on LinkedIn. I'm always up for a conversation about forecasting, finance and automation.</p>
         <div class="contact">
-          <a class="btn primary" href="#contact" data-mailto><svg class="mail" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>Email me</span></a>
+          <button class="btn primary email-btn" type="button" data-copy-email aria-describedby="email-hint"><svg class="mail" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><svg class="ok" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="lbl" aria-live="polite">Email me</span></button><span id="email-hint" hidden>Copies my email address</span>
           <a class="btn" href="https://www.linkedin.com/in/nickgcamp"><svg class="li" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg><span>Message me on LinkedIn</span></a>
-          <button class="btn" type="button" data-email aria-live="polite">Copy my email</button>
-          <a class="btn nav-pdf" href="assets/Nick_Campuzano_Resume.pdf" aria-label="Download resume (PDF)"><svg class="dl" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 11v6M9 14.5l3 3 3-3"/></svg><span>Resume</span></a>
+          <a class="btn" href="assets/Nick_Campuzano_Resume.pdf" aria-label="Download resume (PDF)"><svg class="dl" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 11v6M9 14.5l3 3 3-3"/></svg><span>Resume</span></a>
         </div>
       </div>
       <span class="gap"></span>
@@ -415,6 +422,16 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
 (() => {
   const EMAIL = ["nick", "nickgcamp.com"].join("@");
   document.querySelectorAll('[data-email-text]').forEach(el => { el.textContent = EMAIL; });
+  document.querySelectorAll('[data-copy-email]').forEach(b => {
+    const lbl = b.querySelector('.lbl'); const label = lbl.textContent; let t;
+    const reset = () => { b.classList.remove('copied'); lbl.textContent = label; };
+    const show = text => { clearTimeout(t); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop', 'copied'); lbl.textContent = text; t = setTimeout(reset, text === 'Copied' ? 1800 : 5000); };
+    b.addEventListener('animationend', () => b.classList.remove('pop'));
+    b.addEventListener('click', () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(EMAIL).then(() => show('Copied'), () => show(EMAIL));
+      else show(EMAIL);
+    });
+  });
   document.querySelectorAll('[data-email]').forEach(b => b.addEventListener('click', () => {
     const label = b.textContent;
     const done = () => { b.textContent = 'Copied!'; setTimeout(() => { b.textContent = label; }, 1500); };
@@ -438,7 +455,6 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
     window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(stuck); } }, { passive: true });
   }
   const EMAIL = ["nick", "nickgcamp.com"].join("@");
-  document.querySelectorAll('[data-mailto]').forEach(a => { a.href = 'mailto:' + EMAIL; });
   const panel = document.querySelector('.contact-panel');
   if (!panel) return;
   const flash = () => { panel.classList.remove('contact-flash'); void panel.offsetWidth; panel.classList.add('contact-flash'); };

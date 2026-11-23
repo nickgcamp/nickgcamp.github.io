@@ -476,7 +476,7 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
 
 /* Blog posts: Back lines up with the article, not the page edge (Nov 23) */
 body:has(.article-body) .backbar { max-width: calc(760px + 32px); }
-body:has(.article-body) .article-head { padding-top: 12px; }
+body:has(.article-body) .article-head { padding-top: 18px; }
 
 /* Summary dot shows Nick's headshot (Nov 23) */
 
