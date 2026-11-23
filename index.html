@@ -425,8 +425,8 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
   document.querySelectorAll('[data-email-text]').forEach(el => { el.textContent = EMAIL; });
   document.querySelectorAll('[data-copy-email]').forEach(b => {
     const lbl = b.querySelector('.lbl'); const label = lbl.textContent; let t;
-    const reset = () => { b.classList.remove('copied'); lbl.textContent = label; };
-    const show = text => { clearTimeout(t); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop', 'copied'); lbl.textContent = text; t = setTimeout(reset, text === 'Copied' ? 1800 : 5000); };
+    const reset = () => { b.classList.remove('copied'); lbl.textContent = label; b.style.minWidth = ''; };
+    const show = text => { clearTimeout(t); if (!b.classList.contains('copied')) b.style.minWidth = b.offsetWidth + 'px'; b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop', 'copied'); lbl.textContent = text; t = setTimeout(reset, text === 'Copied' ? 1800 : 5000); };
     b.addEventListener('animationend', () => b.classList.remove('pop'));
     b.addEventListener('click', () => {
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(EMAIL).then(() => show('Copied'), () => show(EMAIL));
