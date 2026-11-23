@@ -705,7 +705,7 @@ body:has(.article-body) .article-head { padding-top: 12px; }
 .enlarge { display: inline-flex; align-items: center; gap: 6px; border: 0; background: var(--ink); color: var(--bg); font: 600 .82rem var(--f-body); padding: 8px 12px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
 .enlarge svg { width: 16px; height: 16px; }
 .enlarge:hover, .enlarge:focus-visible { background: var(--accent); color: var(--accent-ink); }
-.lb-card { margin: 0 auto; width: var(--lb-fit, 100%); max-width: 100%; cursor: zoom-in; }
+.lb-card { margin: 0 auto; width: var(--lb-fit, 100%); max-width: 100%; cursor: zoom-in; color: var(--ink); }
 .lb-card .enlarge { display: none; }
 .lb-card.fig { margin: 0 auto; }
 .lightbox.big .lb-card { width: var(--lb-w, 1400px); max-width: none; cursor: zoom-out; }
