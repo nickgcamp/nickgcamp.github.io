@@ -171,3 +171,138 @@ document.addEventListener("click", (e) => {
   });
   scroller.addEventListener("click", (e) => { if (e.target === scroller) hide(); });
 })();
+
+/* Pinned header height, Email me link, and the contact highlight */
+(() => {
+  const hdr = document.querySelector('.site-header, .top');
+  const root = document.documentElement;
+  if (hdr) {
+    const size = () => root.style.setProperty('--hdr-h', (hdr.offsetHeight + 14) + 'px');
+    let ticking = false;
+    const stuck = () => { ticking = false; hdr.classList.toggle('stuck', window.scrollY > 4 && hdr.getBoundingClientRect().top <= 0.5); };
+    size(); stuck();
+    window.addEventListener('resize', size);
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(stuck); } }, { passive: true });
+  }
+  const EMAIL = ["nick", "nickgcamp.com"].join("@");
+  document.querySelectorAll('[data-mailto]').forEach(a => { a.href = 'mailto:' + EMAIL; });
+  const panel = document.querySelector('.contact-panel');
+  if (!panel) return;
+  const flash = () => { panel.classList.remove('contact-flash'); void panel.offsetWidth; panel.classList.add('contact-flash'); };
+  panel.addEventListener('animationend', () => panel.classList.remove('contact-flash'));
+  document.querySelectorAll('a[href="#contact"]').forEach(a => a.addEventListener('click', () => setTimeout(flash, 350)));
+  if (location.hash === '#contact') setTimeout(flash, 450);
+  window.addEventListener('hashchange', () => { if (location.hash === '#contact') setTimeout(flash, 350); });
+})();
+
+/* Side tracker, reading-progress bar and gentle section reveal */
+(() => {
+  const root = document.documentElement;
+  const sections = [...document.querySelectorAll('main > section[aria-labelledby]')];
+  if (sections.length < 3) return;
+  const hdr = document.querySelector('.top, .site-header');
+  // reading-progress bar under the pinned header (narrow screens)
+  if (hdr) {
+    const bar = document.createElement('span'); bar.className = 'read-bar'; bar.setAttribute('aria-hidden', 'true'); hdr.appendChild(bar);
+    let t = false;
+    const upd = () => { t = false; const max = root.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')'; };
+    addEventListener('scroll', () => { if (!t) { t = true; requestAnimationFrame(upd); } }, { passive: true });
+    addEventListener('resize', upd); upd();
+  }
+  // side tracker (wide screens)
+  const nav = document.createElement('nav'); nav.className = 'spy'; nav.setAttribute('aria-label', 'On this page');
+  const links = sections.map(s => {
+    const h = document.getElementById(s.getAttribute('aria-labelledby'));
+    const a = document.createElement('a');
+    a.href = '#' + (s.id || h.id);
+    a.innerHTML = '<span class="dot" aria-hidden="true"></span><span class="lbl"></span>';
+    a.querySelector('.lbl').textContent = h.textContent.trim();
+    nav.appendChild(a); return a;
+  });
+  document.body.appendChild(nav);
+  const setOn = i => links.forEach((a, k) => { a.classList.toggle('on', k === i); if (k === i) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+  const pick = () => {
+    const line = innerHeight * 0.35; let cur = 0;
+    sections.forEach((s, i) => { if (s.getBoundingClientRect().top <= line) cur = i; });
+    if (innerHeight + scrollY >= root.scrollHeight - 2) cur = sections.length - 1;
+    setOn(cur);
+  };
+  let p = false;
+  addEventListener('scroll', () => { if (!p) { p = true; requestAnimationFrame(() => { p = false; pick(); }); } }, { passive: true });
+  addEventListener('resize', pick); pick();
+  // gentle reveal, once per section
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const show = s => s.classList.add('in');
+    sections.forEach(s => { if (s.getBoundingClientRect().top < innerHeight * 0.95) show(s); });
+    root.classList.add('reveal-on');
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    sections.forEach(s => { if (!s.classList.contains('in')) io.observe(s); });
+    // a jump (tracker, Contact, a link) shows everything it passes
+    addEventListener('hashchange', () => sections.forEach(show));
+    setTimeout(() => sections.forEach(s => { if (s.getBoundingClientRect().top < innerHeight) show(s); }), 1200);
+  }
+})();
+/* Deep Dive reading tracker: sections light up as you read, time left counts down */
+(() => {
+  const art = document.querySelector('.article');
+  const body = art && art.querySelector('.article-body');
+  if (!body) return;
+  const heads = [...body.querySelectorAll(':scope > h2[id]')];
+  if (heads.length < 2) return;
+  const root = document.documentElement;
+  const meta = [...art.querySelectorAll('.meta-line span')].map(s => s.textContent.match(/(\d+)\s*min read/)).find(Boolean);
+  const blocks = [...body.querySelectorAll(':scope > p, :scope > ul, :scope > ol, :scope > figure, :scope > h2, :scope > blockquote')];
+  const words = el => (el.textContent.trim().match(/\S+/g) || []).length + (el.tagName === 'FIGURE' ? 40 : 0);
+  const counts = blocks.map(words);
+  const total = counts.reduce((a, b) => a + b, 0) || 1;
+  const perMin = meta ? total / +meta[1] : 230;
+  const hdr = document.querySelector('.site-header');
+  // side tracker (wide screens)
+  const nav = document.createElement('nav'); nav.className = 'track'; nav.setAttribute('aria-label', 'Sections in this read');
+  nav.innerHTML = '<span class="left" aria-live="off"></span><ol><span class="fill" aria-hidden="true"></span></ol>';
+  const ol = nav.querySelector('ol'), fill = nav.querySelector('.fill'), leftEl = nav.querySelector('.left');
+  const label = h => h.textContent.trim().replace(/^\d+\.\s*/, '');
+  const links = heads.map(h => { const li = document.createElement('li'); const a = document.createElement('a'); a.href = '#' + h.id; a.textContent = label(h); li.appendChild(a); ol.appendChild(li); return a; });
+  document.body.appendChild(nav);
+  // slim bar and strip under the pinned header (narrow screens)
+  let bar, strip;
+  if (hdr) {
+    bar = document.createElement('span'); bar.className = 'read-bar'; bar.setAttribute('aria-hidden', 'true'); hdr.appendChild(bar);
+    strip = document.createElement('div'); strip.className = 'read-strip'; strip.setAttribute('aria-hidden', 'true');
+    strip.innerHTML = '<span class="sec"></span><span class="left"></span>'; hdr.appendChild(strip);
+  }
+  const fmt = (m, started) => !started ? Math.round(total / perMin) + ' min read' : m <= 0 ? 'You made it' : (m < 1 ? 'Under 1 min left' : Math.ceil(m) + ' min left');
+  const tick = () => {
+    const line = innerHeight * 0.4;
+    let left = 0;
+    blocks.forEach((b, i) => { const r = b.getBoundingClientRect(); if (r.bottom <= line) return; if (r.top >= line) left += counts[i]; else left += counts[i] * (r.bottom - line) / (r.height || 1); });
+    const started = body.getBoundingClientRect().top < line;
+    let cur = -1; heads.forEach((h, i) => { if (h.getBoundingClientRect().top <= line) cur = i; });
+    const end = innerHeight + scrollY >= root.scrollHeight - 2;
+    if (end) { cur = heads.length - 1; left = 0; }
+    links.forEach((a, i) => { a.classList.toggle('on', i === cur); a.classList.toggle('done', i < cur); if (i === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+    const txt = fmt(left / perMin, started);
+    leftEl.textContent = txt;
+    const on = links[cur];
+    fill.style.height = on ? (on.offsetTop + 4) + 'px' : '0px';
+    const foot = document.querySelector('.site-footer');
+    if (foot) nav.classList.toggle('away', foot.getBoundingClientRect().top < nav.getBoundingClientRect().bottom + 24);
+    if (bar) { const p = Math.min(1, Math.max(0, 1 - left / total)); bar.style.transform = 'scaleX(' + (started ? p : 0) + ')'; }
+    if (strip) { strip.classList.toggle('show', started); strip.querySelector('.sec').textContent = cur >= 0 ? label(heads[cur]) : 'Intro'; strip.querySelector('.left').textContent = txt; }
+  };
+  let t = false;
+  addEventListener('scroll', () => { if (!t) { t = true; requestAnimationFrame(() => { t = false; tick(); }); } }, { passive: true });
+  addEventListener('resize', tick); addEventListener('load', tick); tick();
+})();
+/* Resume download name carries this month and year, e.g. Nick_Campuzano_Resume_Nov_2026.pdf */
+(() => {
+  const M = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const name = () => { const d = new Date(); return 'Nick_Campuzano_Resume_' + M[d.getMonth()] + '_' + d.getFullYear() + '.pdf'; };
+  const set = a => { const n = name(); a.setAttribute('download', n); a.title = 'Downloads as ' + n; };
+  document.querySelectorAll('a[href$="Nick_Campuzano_Resume.pdf"]').forEach(a => {
+    set(a);
+    a.addEventListener('pointerdown', () => set(a));
+    a.addEventListener('click', () => set(a));
+  });
+  document.querySelectorAll('[data-resume-name]').forEach(el => { el.textContent = name(); });
+})();
