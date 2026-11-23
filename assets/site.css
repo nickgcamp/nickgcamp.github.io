@@ -440,7 +440,6 @@ html { scroll-padding-top: var(--hdr-h, 112px); }
 /* Where-am-I: side tracker on wide screens, progress bar on narrow ones, gentle reveal (Nov 23) */
 
 .read-bar { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--accent); transform-origin: left center; transform: scaleX(0); border-radius: 0 3px 3px 0; pointer-events: none; }
-@media (min-width: 1240px) { .read-bar { display: none; } }
 
 /* Blog post reading tracker: sections that light up, time left (Nov 23) */
 .track { display: none; }
