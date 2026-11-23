@@ -23,8 +23,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="../assets/site.css?v=20261123c">
-<script src="../assets/site.js?v=20261123c" defer></script>
+<link rel="stylesheet" href="../assets/site.css?v=20261123d">
+<script src="../assets/site.js?v=20261123d" defer></script>
 <style>
 /* Layout: one wide panel, map on the left and the answer plus dials on the right; the four-step "follow one home" strip runs underneath.
    Tokens mirror nickgcamp.com (look C) so the page drops into the site; the three stop colors are the only new tokens. */
@@ -78,7 +78,7 @@ a { color: var(--accent); text-underline-offset: 3px; }
 .map-caption { font-size: .95rem; color: var(--body); margin-top: 10px; padding-left: 12px; border-left: 3px solid var(--red); max-width: 52ch; }
 .map-note { font-size: .78rem; color: var(--faint); margin-top: 6px; }
 
-.side { display: grid; gap: 20px; min-width: 0; }
+.eq-side { display: grid; gap: 20px; min-width: 0; }
 .answer { display: grid; gap: 4px; }
 .answer .big { font-family: var(--f-display); font-weight: 850; font-stretch: 112%; font-size: clamp(2.6rem, 7vw, 4.2rem); line-height: .95; letter-spacing: -0.03em; color: var(--red-text); font-variant-numeric: tabular-nums; }
 .answer .big small { font-size: .42em; color: var(--muted); font-weight: 700; letter-spacing: -0.01em; }
@@ -176,7 +176,7 @@ input[type=range] { width: 100%; margin: 0; }
       <p class="map-note">Tap any dot to follow that home below.</p>
     </div>
 
-    <div class="side">
+    <div class="eq-side">
       <div class="answer" aria-live="polite">
         <div class="big" id="big"></div>
         <p class="sub" id="sub"></p>
@@ -269,7 +269,6 @@ input[type=range] { width: 100%; margin: 0; }
     <span>© 2026 Nick Campuzano · Minneapolis, MN</span>
     <nav aria-label="Footer">
       <a href="https://www.linkedin.com/in/nickgcamp">LinkedIn</a>
-      <a href="https://github.com/nickgcamp">GitHub</a>
       <a href="../assets/Nick_Campuzano_Resume.pdf">Resume PDF</a>
     </nav>
   </div>

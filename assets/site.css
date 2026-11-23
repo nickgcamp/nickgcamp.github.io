@@ -448,12 +448,6 @@ button.icon-link { padding: 0; }
 .about-grid .prose { align-content: start; }
 
 /* ---- Living resume: simple header, back link, LinkedIn by the name ---- */
-.brand-row { display: flex; align-items: center; gap: 10px; }
-.brand-li { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #0a66c2; }
-.brand-li svg { width: 22px; height: 22px; fill: currentColor; }
-.brand-li:hover { background: var(--accent-soft); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .brand-li { color: #7cb7ff; } }
-:root[data-theme="dark"] .brand-li { color: #7cb7ff; }
 .backbar { padding-block: 0 4px; }
 .back-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; font-size: .95rem; color: var(--accent); text-decoration: none; }
 .back-link:hover { text-decoration: underline; }
@@ -495,3 +489,14 @@ button.icon-link { padding: 0; }
 @media (max-width: 860px) { .split { grid-template-columns: minmax(0, 1fr); gap: 22px; } .visual-col { position: static; } .spar { gap: 10px; } .spar div { padding-top: 8px; } }
 .nav a.nav-pdf { gap: 6px; border: 1px solid var(--line-strong); }
 .nav a.nav-pdf .dl { flex: none; }
+
+/* ---- Name button + LinkedIn, same spot on every page ---- */
+.brand-row { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.brand-row .brand { display: inline-block; white-space: nowrap; line-height: 30px; padding: 4px 14px; border: 1px solid var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); border-radius: 10px; transition: background-color .15s, border-color .15s; }
+.brand-row .brand:hover, .brand-row .brand:focus-visible { background: var(--accent-soft); border-color: var(--accent); }
+.brand-li { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid var(--line); color: #0a66c2; transition: background-color .15s, border-color .15s; }
+.brand-li svg { width: 22px; height: 22px; fill: currentColor; }
+.brand-li:hover, .brand-li:focus-visible { background: var(--accent-soft); border-color: var(--accent); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .brand-li { color: #7cb7ff; } }
+:root[data-theme="dark"] .brand-li { color: #7cb7ff; }
+@media (max-width: 860px) { .brand-row .brand { line-height: 34px; } .brand-li { width: 44px; height: 44px; } }
