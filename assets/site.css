@@ -419,3 +419,29 @@ button.icon-link { padding: 0; }
   .avatar { width: 64px; height: 64px; }
   .resume-id .avatar { width: 60px; height: 60px; }
 }
+
+/* Home page: featured first card, problem / what I built, screenshot thumbs, Off the clock */
+.cards .feature { grid-column: 1 / -1; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: none; }
+.cards .feature .thumb { aspect-ratio: auto; height: 100%; min-height: 260px; }
+.cards .feature .body { padding: 24px 26px; align-content: center; gap: 10px; }
+.cards .feature h3 { font-size: clamp(1.4rem, 3vw, 1.9rem); }
+.work-card .thumb.shot { align-items: start; }
+.work-card .thumb.shot img { object-position: top center; }
+.work-card .thumb.alert { align-items: center; }
+.work-card .thumb.alert svg { padding: 10px 18px; }
+.pb { margin: 4px 0 2px; display: grid; gap: 8px; }
+.pb div { display: grid; gap: 1px; }
+.pb dt { font-family: var(--f-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
+.pb dd { margin: 0; color: var(--body); font-size: .94rem; }
+.side { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.side > div { display: grid; gap: 6px; align-content: start; padding: 18px 20px; border-top: 2px solid var(--ink); min-width: 0; }
+.side h3 { font-size: var(--step-1); }
+.side p { color: var(--muted); font-size: .94rem; }
+.side-ico { width: 34px; height: 34px; border-radius: 10px; background: var(--accent-soft); display: grid; place-items: center; margin-bottom: 4px; }
+.side-ico svg { width: 20px; height: 20px; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.side-foot { margin-top: 14px; font-size: .86rem; color: var(--muted); font-style: italic; }
+@media (max-width: 820px) {
+  .cards .feature { grid-template-columns: minmax(0, 1fr); }
+  .cards .feature .thumb { aspect-ratio: 16 / 9; height: auto; min-height: 0; }
+  .side { grid-template-columns: minmax(0, 1fr); }
+}
